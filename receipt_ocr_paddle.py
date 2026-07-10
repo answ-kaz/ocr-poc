@@ -159,6 +159,7 @@ BRAND_DICT = [
     'セブン-イレブン', 'ファミリーマート', 'FamilyMart', 'LAWSON', 'ローソン',
     'ミニストップ', 'デイリーヤマザキ', 'NewDays', 'セイコーマート',
     'MOS BURGER', 'モスバーガー', 'うさちゃんクリーニング',
+    'Ringer Hut', 'リンガーハット', 'LUPICIA', 'ルピシア',
 ]
 
 def _compact(s):
@@ -182,7 +183,25 @@ def _strip_brand(compact_line, brand):
         variants = {c, c.translate(_PA_TO_BA), c.translate(_BA_TO_PA)}
         parts.append('[' + ''.join(re.escape(v) for v in sorted(variants)) + ']'
                      if len(variants) > 1 else re.escape(c))
-    return re.sub(sep.join(parts), '', compact_line, count=1)
+    out = re.sub(sep.join(parts), '', compact_line, count=1)
+    if out != compact_line:
+        return out
+    # 正規表現で除去できない崩れ方(「クリーニング→クニング」等の文字脱落)は
+    # 類似度のスライディング窓で最良一致箇所を探して除去する
+    from difflib import SequenceMatcher
+    bl = _loose(brand)
+    if len(bl) < 4:
+        return compact_line
+    best = (0.0, None, None)
+    for size in range(max(3, len(bl) - 2), len(bl) + 3):
+        for i in range(len(compact_line) - size + 1):
+            ratio = SequenceMatcher(None, bl, _loose(compact_line[i:i + size])).ratio()
+            if ratio > best[0]:
+                best = (ratio, i, size)
+    if best[0] >= 0.8:
+        i, size = best[1], best[2]
+        return compact_line[:i] + compact_line[i + size:]
+    return compact_line
 
 # OCRが簡体字グリフとして誤認識しやすい字の対応表(NFKCでは正規化されないため明示置換)
 _SIMPLIFIED_TO_JP = str.maketrans('额领对费减轻', '額領対費減軽')
@@ -228,9 +247,10 @@ def extract_fields(text, extra_brands=None):
         compact = re.sub(r'\s+', '', line)
         if brand:
             compact = _strip_brand(compact, brand)
-        m = re.search(r'([ぁ-んァ-ヶ一-龥A-Za-z][ぁ-んァ-ヶ一-龥A-Za-z0-9ー]*店)$', compact)
+        # 半角「-」も許容(長音「ー」の誤認識対策)し、マッチ後にカタカナ間の「-」を長音へ戻す
+        m = re.search(r'([ぁ-んァ-ヶ一-龥A-Za-z][ぁ-んァ-ヶ一-龥A-Za-z0-9ー\-]*店)$', compact)
         if m and '対象' not in compact:
-            result['store_branch'] = m.group(1)
+            result['store_branch'] = re.sub(r'(?<=[ァ-ヶ])-(?=[ァ-ヶ])', 'ー', m.group(1))
             break
 
     # 登録番号(インボイス T+13桁。スペース除去後にマッチ)
@@ -268,11 +288,13 @@ def extract_fields(text, extra_brands=None):
     NUM = r'[¥\\]?\s*(\d{1,3}(?:[,，.]\s*\d{3})+|\d+)'
     patterns = {
         # 「お預り合計」の合計にマッチしないよう直前の「り」を除外
-        # 「合計金額 ¥2,503」のように「計」と金額の間に「金額」が入る表記を許容
-        'total': r'(?<!り)合\s*計\s*(?:金\s*額)?\s*' + NUM,
+        # 「合計金額 ¥2,503」のように「計」と金額の間に「金額」が入る表記と、
+        # 「<合 計> ¥1,800」のような括弧付きラベルの閉じ記号を許容
+        'total': r'(?<!り)合\s*計\s*[>)\]]?\s*(?:金\s*額)?\s*' + NUM,
         # 「お預り」「お預かり」「お預り合計」と、現金払いの「現金 ¥6,000」行に対応
         'deposit': r'(?:お\s*預\s*か?\s*り?\s*(?:合\s*計)?|現\s*金)\s*' + NUM,
-        'change': r'お\s*[釣鈎釘勺]\s*り?\s*' + NUM,
+        # ひらがな「おつり ¥0」表記も対応
+        'change': r'お\s*[釣鈎釘勺つ]\s*り?\s*' + NUM,
     }
     for key, pat in patterns.items():
         m = re.search(pat, text)
@@ -283,13 +305,15 @@ def extract_fields(text, extra_brands=None):
     # 「消費税等(8%) ¥21」の税率括弧表記、「(内税) ¥388」「内税額10.0%¥228」、
     # 小数点付き税率を許容。税率なしの表記(=合算値であることが多い)を優先し、
     # 無ければ税率ごとに1件ずつ採って合算する(8%/10%併記の軽減税率レシート)。
-    tax_pat = (r'(?:内?\s*消\s*費\s*税\s*[等額]?|内\s*税\s*額?)\s*\)?\s*'
+    # 税率はラベル後の「消費税等(8%)」に加え、ラベル前の「10%対象内消費税」形式も拾う
+    tax_pat = (r'(?:(?P<rate_pre>\d{1,2}(?:\.\d+)?)\s*%\s*対象\s*)?'
+               r'(?:内?\s*消\s*費\s*税\s*[等額]?|内\s*税\s*額?)\s*\)?\s*'
                r'(?:\(?\s*(?P<rate>\d{1,2}(?:\.\d+)?)\s*%\s*\)?)?\s*'
                + NUM.replace('(', '(?P<amt>', 1))
     no_rate_amt, by_rate = None, {}
     for m in re.finditer(tax_pat, text):
         amt = int(re.sub(r'[,，.\s]', '', m.group('amt')))
-        rate = m.group('rate')
+        rate = m.group('rate') or m.group('rate_pre')
         if rate is None:
             if no_rate_amt is None:
                 no_rate_amt = amt

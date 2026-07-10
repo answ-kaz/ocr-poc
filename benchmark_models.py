@@ -72,6 +72,25 @@ GROUND_TRUTHS = {
         'total': 2503,
         'tax': 228,   # 内税額10.0%
     },
+    'receipt7.jpg': {  # Ringer Hut ◯◯店(SCギフト払いで預り/釣り無し・時刻「20時24分」表記)
+        'store_brand': 'Ringer Hut',
+        'store_branch': '◯◯店',
+        'registration_number': 'T0000000000006',
+        'date': '2026-07-10',
+        'time': '20:24',
+        'total': 1800,
+        'tax': 163,   # (内消費税等 ¥163)
+    },
+    'receipt8.jpg': {  # LUPICIA ◯◯店(90度回転・クレジット払い・おつり¥0印字あり)
+        'store_brand': 'LUPICIA',
+        'store_branch': '◯◯店',
+        'registration_number': 'T0000000000007',
+        'date': '2026-07-10',
+        'time': '20:59',  # 印字は 20:59:29(秒付き)
+        'total': 5000,
+        'tax': 423,   # 10%対象内消費税¥290 + 8%対象内消費税¥133(合算行の印字なし)
+        'change': 0,  # 「おつり ¥0」印字あり(お預り行は無し=クレジット)
+    },
 }
 
 PRESETS = {

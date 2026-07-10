@@ -93,9 +93,10 @@ def build_targets():
 # ---------------- メイン ----------------
 def main():
     verbose = '-v' in sys.argv
+    quantized = '--quantized' in sys.argv
     conditions = ['clean', 'light', 'medium', 'heavy']
     targets, gts = build_targets()
-    ocr = OnnxReceiptOCR()
+    ocr = OnnxReceiptOCR(quantized=quantized)
 
     # results[case][cond] = {'fields':..., 'ok': set, 'ng': {field: got}}
     results = {}

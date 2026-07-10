@@ -26,6 +26,7 @@ FIELD_ORDER = ['store_brand', 'store_branch', 'registration_number',
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--verbose', action='store_true', help='NG画像のOCR生テキストも表示')
+    ap.add_argument('--quantized', action='store_true', help='INT8量子化モデル(*_int8.onnx)で評価')
     args = ap.parse_args()
 
     with open(os.path.join(ROOT, 'synth', 'gt.json'), encoding='utf-8') as f:
@@ -34,7 +35,8 @@ def main():
     # 架空ブランドの店名マスタ(実運用のチェーン店マスタDB相当)を抽出側へ注入
     synth_brands = sorted({gt['store_brand'] for gt in gts.values() if 'store_brand' in gt})
 
-    ocr = OnnxReceiptOCR(model_dir=os.path.join(ROOT, 'onnx_models'))
+    ocr = OnnxReceiptOCR(model_dir=os.path.join(ROOT, 'onnx_models'),
+                         quantized=args.quantized)
 
     field_stat = {k: [0, 0] for k in FIELD_ORDER}  # field -> [correct, present]
     total_correct = total_fields = 0

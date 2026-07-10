@@ -43,14 +43,16 @@ def _imagenet_normalize(img):
 
 
 class OnnxReceiptOCR:
-    def __init__(self, model_dir=MODEL_DIR):
+    def __init__(self, model_dir=MODEL_DIR, quantized=False):
         opt = ort.SessionOptions()
         opt.log_severity_level = 3
         providers = ['CPUExecutionProvider']
-        self.det = ort.InferenceSession(f'{model_dir}/PP-OCRv6_small_det.onnx', opt, providers=providers)
-        self.rec = ort.InferenceSession(f'{model_dir}/PP-OCRv6_small_rec.onnx', opt, providers=providers)
-        self.doc_ori = ort.InferenceSession(f'{model_dir}/PP-LCNet_x1_0_doc_ori.onnx', opt, providers=providers)
-        self.line_ori = ort.InferenceSession(f'{model_dir}/PP-LCNet_x1_0_textline_ori.onnx', opt, providers=providers)
+        # quantized=True で quantize_models.py が生成した INT8 モデル(*_int8.onnx)を読む
+        suffix = '_int8' if quantized else ''
+        self.det = ort.InferenceSession(f'{model_dir}/PP-OCRv6_small_det{suffix}.onnx', opt, providers=providers)
+        self.rec = ort.InferenceSession(f'{model_dir}/PP-OCRv6_small_rec{suffix}.onnx', opt, providers=providers)
+        self.doc_ori = ort.InferenceSession(f'{model_dir}/PP-LCNet_x1_0_doc_ori{suffix}.onnx', opt, providers=providers)
+        self.line_ori = ort.InferenceSession(f'{model_dir}/PP-LCNet_x1_0_textline_ori{suffix}.onnx', opt, providers=providers)
         with open(f'{model_dir}/rec_dict.txt', encoding='utf-8') as f:
             chars = f.read().split('\n')
         # CTCLabelDecode: 先頭にblank、末尾に空白を追加
