@@ -1,0 +1,10 @@
+# 仮想環境(ランタイム用3.13 / paddle2onnx変換専用3.12)
+.venv/
+.venv-convert/
+
+__pycache__/
+*.pyc
+
+# 前処理の派生画像(スクリプト実行で再生成される)
+preprocessed_gray.png
+preprocessed_binary.png
