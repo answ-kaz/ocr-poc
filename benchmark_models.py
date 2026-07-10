@@ -38,6 +38,40 @@ GROUND_TRUTHS = {
         'total': 289,
         'tax': 21,
     },
+    'receipt3.jpg': {  # モスバーガー ◯◯店(ドライブスルー・クレジット払いで預り/釣り無し)
+        'store_brand': 'MOS BURGER',
+        'store_branch': '◯◯店',
+        'registration_number': 'T0000000000003',
+        'date': '2026-04-10',
+        'time': '12:22',
+        'total': 5240,
+        'tax': 388,   # (内税) ¥388 = 軽減税8.0%
+    },
+    'receipt4.jpg': {  # LAWSON ◯◯店(地方公共団体証明書代の領収証・非課税・登録番号記載なし)
+        'store_brand': 'LAWSON',
+        'store_branch': '◯◯店',
+        'date': '2026-07-10',
+        'time': '18:30',
+        'total': 200,
+    },
+    'receipt5.jpg': {  # LAWSON ◯◯店(メルペイ払いで預り/釣り無し)
+        'store_brand': 'LAWSON',
+        'store_branch': '◯◯店',
+        'registration_number': 'T0000000000004',
+        'date': '2026-07-07',
+        'time': '09:19',
+        'total': 1680,
+        'tax': 144,   # 内消費税等
+    },
+    'receipt6.jpg': {  # うさちゃんクリーニング ◯◯店(クリーニング代領収書・時刻は「15時16分」表記)
+        'store_brand': 'うさちゃんクリーニング',
+        'store_branch': '◯◯店',
+        'registration_number': 'T0000000000005',
+        'date': '2026-06-16',
+        'time': '15:16',
+        'total': 2503,
+        'tax': 228,   # 内税額10.0%
+    },
 }
 
 PRESETS = {

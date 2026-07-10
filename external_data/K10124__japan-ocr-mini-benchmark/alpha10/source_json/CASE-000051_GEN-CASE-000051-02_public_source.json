@@ -1,0 +1,137 @@
+{
+  "project": "Japan OCR Mini Benchmark",
+  "synthetic": true,
+  "public_release_source": true,
+  "case_id": "CASE-000051",
+  "generation_id": "GEN-CASE-000051-02",
+  "generation_number": 2,
+  "receipt_identity": {
+    "receipt_type": "izakaya_alcohol_eat_in_standard_tax_receipt",
+    "industry": "restaurant",
+    "structure_id": "structure_audit_pending",
+    "layout_variant_id": "store_unique_v5_reference_derived",
+    "branding_variant_id": "sake_lantern_mincho_wordmark",
+    "typography_variant_id": "sake_lantern_mincho_wordmark"
+  },
+  "store_identity": {
+    "name": "酒菜 ほの灯",
+    "subtitle": "SAKE / SMALL PLATES / EVENING",
+    "branch": "品川通り店",
+    "phone": "04-3217-3375",
+    "store_no": "255",
+    "fictional_identity": true
+  },
+  "items": [
+    {
+      "name": "生ビール",
+      "quantity": 3,
+      "amount_yen": 1740,
+      "tax_rate": 10,
+      "unit_price_yen": 580
+    },
+    {
+      "name": "季節サラダ",
+      "quantity": 1,
+      "amount_yen": 440,
+      "tax_rate": 10,
+      "unit_price_yen": 440
+    },
+    {
+      "name": "焼きおにぎり",
+      "quantity": 2,
+      "amount_yen": 460,
+      "tax_rate": 10,
+      "unit_price_yen": 230
+    },
+    {
+      "name": "鶏唐揚げ",
+      "quantity": 1,
+      "amount_yen": 680,
+      "tax_rate": 10,
+      "unit_price_yen": 680
+    },
+    {
+      "name": "刺身三種盛",
+      "quantity": 1,
+      "amount_yen": 1600,
+      "tax_rate": 10,
+      "unit_price_yen": 1600
+    }
+  ],
+  "totals": {
+    "subtotal_yen": 4920,
+    "total_yen": 4920,
+    "positive_item_total_yen": 4920,
+    "item_count": 8
+  },
+  "tax_summary": {
+    "round_policy": "floor_tax_included_per_rate",
+    "inferred_from_items": false,
+    "rates": [
+      {
+        "tax_rate": 8,
+        "taxable_amount_yen": 0,
+        "tax_amount_yen": 0,
+        "inferred_from_items": false
+      },
+      {
+        "tax_rate": 10,
+        "taxable_amount_yen": 4920,
+        "tax_amount_yen": 447,
+        "inferred_from_items": false
+      }
+    ]
+  },
+  "payment": {
+    "method": "現金",
+    "cash_received_yen": 5000,
+    "change_yen": 80
+  },
+  "public_safety": {
+    "public_safety_status": "public_safe",
+    "synthetic_store": true,
+    "no_real_brand_intended": true,
+    "no_real_personal_data_intended": true,
+    "reference_material_removed": true
+  },
+  "validation": {
+    "generated_by": "build_public_release_sidecars_from_strict.py",
+    "created_at": "2026-06-28 14:00:47",
+    "based_on_strict_preflight": true,
+    "strict_preflight_input": "05_generation/receipt_library_manager/exports/preflight_strict/public_candidate_preflight_strict_latest.json",
+    "strict_preflight_status": "needs_fix_before_export",
+    "critical_count_before_sidecar": 0,
+    "major_count_before_sidecar": 2,
+    "minor_count_before_sidecar": 2,
+    "notes": []
+  },
+  "invoice_profile": {
+    "invoice_like": true,
+    "invoice_type": "simplified_invoice_like",
+    "registration_number_printed": false,
+    "registration_number": null,
+    "registration_number_is_synthetic": false,
+    "registration_registry_checked": false,
+    "registration_registry_check_note": "No live lookup performed; synthetic or unverified registration data for OCR benchmark.",
+    "tax_rate_statement_printed": true,
+    "mixed_tax_rates": true,
+    "discount_allocated_by_tax_rate": false,
+    "printed_tax_notes": [],
+    "human_invoice_visual_check_required": true,
+    "invoice_naturalness": {
+      "registration_number_expected_for_industry": true,
+      "reason": "業態上、登録番号が印字されていると自然ですが、現在の公開用sourceには登録番号がありません。",
+      "future_generation_recommendation": "次回Genでは登録番号印字を検討してください。現在の画像に無い番号は追加しません。"
+    }
+  },
+  "phone_profile": {
+    "phone_number_printed": true,
+    "phone_number": "04-3217-3375",
+    "area_code": "04",
+    "area_code_region_consistent": "unknown",
+    "phone_number_is_synthetic": true,
+    "phone_number_registry_checked": false,
+    "phone_number_registry_check_note": "No live lookup performed; synthetic phone number for OCR benchmark.",
+    "human_phone_visual_check_required": true
+  }
+}

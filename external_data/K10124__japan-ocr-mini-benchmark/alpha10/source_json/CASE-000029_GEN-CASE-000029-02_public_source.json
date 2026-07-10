@@ -1,0 +1,376 @@
+{
+  "project": "Japan OCR Mini Benchmark",
+  "synthetic": true,
+  "public_release_source": true,
+  "case_id": "CASE-000029",
+  "generation_id": "GEN-CASE-000029-02",
+  "generation_number": 2,
+  "receipt_identity": {
+    "receipt_type": "supermarket_bulk_takeout_food_external_tax_receipt",
+    "industry": "supermarket_food",
+    "structure_id": "structure_audit_pending",
+    "layout_variant_id": "generated_receipt_batch",
+    "branding_variant_id": "fictional_mirai_value_arrow_wordmark",
+    "typography_variant_id": "fictional_mirai_value_arrow_wordmark"
+  },
+  "store_identity": {
+    "store_name": "MIRAI VALUE",
+    "company_name": "サンリーフマーケット株式会社",
+    "branch_name": "高松木太店",
+    "address": "香川県高松市木太町2-9-11",
+    "phone_number": "087-864-1215",
+    "invoice_registration_number": "T3892223668516",
+    "fictional_identity": true
+  },
+  "items": [
+    {
+      "name": "MVクリームチーズ",
+      "quantity": 1,
+      "amount_yen": 250,
+      "tax_rate": 8,
+      "unit_price_yen": 250
+    },
+    {
+      "name": "カカオパウチ",
+      "quantity": 1,
+      "amount_yen": 250,
+      "tax_rate": 8,
+      "unit_price_yen": 250
+    },
+    {
+      "name": "串つきフランク",
+      "quantity": 2,
+      "amount_yen": 660,
+      "tax_rate": 8,
+      "unit_price_yen": 330
+    },
+    {
+      "name": "肉ワンタン",
+      "quantity": 2,
+      "amount_yen": 280,
+      "tax_rate": 8,
+      "unit_price_yen": 140
+    },
+    {
+      "name": "木綿とうふ",
+      "quantity": 1,
+      "amount_yen": 70,
+      "tax_rate": 8,
+      "unit_price_yen": 70
+    },
+    {
+      "name": "彩り野菜ミックス",
+      "quantity": 1,
+      "amount_yen": 140,
+      "tax_rate": 8,
+      "unit_price_yen": 140
+    },
+    {
+      "name": "豚肉しゃぶしゃぶ用",
+      "quantity": 1,
+      "amount_yen": 980,
+      "tax_rate": 8,
+      "unit_price_yen": 980
+    },
+    {
+      "name": "小粒納豆",
+      "quantity": 1,
+      "amount_yen": 100,
+      "tax_rate": 8,
+      "unit_price_yen": 100
+    },
+    {
+      "name": "塩昆布",
+      "quantity": 1,
+      "amount_yen": 110,
+      "tax_rate": 8,
+      "unit_price_yen": 110
+    },
+    {
+      "name": "ミルククッキー",
+      "quantity": 2,
+      "amount_yen": 200,
+      "tax_rate": 8,
+      "unit_price_yen": 100
+    },
+    {
+      "name": "ポテトスティック バター",
+      "quantity": 1,
+      "amount_yen": 150,
+      "tax_rate": 8,
+      "unit_price_yen": 150
+    },
+    {
+      "name": "まろやかヨーグルト",
+      "quantity": 1,
+      "amount_yen": 120,
+      "tax_rate": 8,
+      "unit_price_yen": 120
+    },
+    {
+      "name": "キャベツ",
+      "quantity": 1,
+      "amount_yen": 90,
+      "tax_rate": 8,
+      "unit_price_yen": 90
+    },
+    {
+      "name": "いわし蒲焼",
+      "quantity": 1,
+      "amount_yen": 150,
+      "tax_rate": 8,
+      "unit_price_yen": 150
+    },
+    {
+      "name": "海苔たれ",
+      "quantity": 1,
+      "amount_yen": 120,
+      "tax_rate": 8,
+      "unit_price_yen": 120
+    },
+    {
+      "name": "生ハム",
+      "quantity": 1,
+      "amount_yen": 170,
+      "tax_rate": 8,
+      "unit_price_yen": 170
+    },
+    {
+      "name": "ツナマヨおにぎり",
+      "quantity": 1,
+      "amount_yen": 140,
+      "tax_rate": 8,
+      "unit_price_yen": 140
+    },
+    {
+      "name": "ポテトサラダ",
+      "quantity": 1,
+      "amount_yen": 130,
+      "tax_rate": 8,
+      "unit_price_yen": 130
+    },
+    {
+      "name": "ミックスサラダ",
+      "quantity": 2,
+      "amount_yen": 260,
+      "tax_rate": 8,
+      "unit_price_yen": 130
+    },
+    {
+      "name": "朝のフルーツゼリー",
+      "quantity": 1,
+      "amount_yen": 70,
+      "tax_rate": 8,
+      "unit_price_yen": 70
+    },
+    {
+      "name": "納豆 3P",
+      "quantity": 1,
+      "amount_yen": 110,
+      "tax_rate": 8,
+      "unit_price_yen": 110
+    },
+    {
+      "name": "アップルティー",
+      "quantity": 1,
+      "amount_yen": 80,
+      "tax_rate": 8,
+      "unit_price_yen": 80
+    },
+    {
+      "name": "バナナ袋",
+      "quantity": 1,
+      "amount_yen": 170,
+      "tax_rate": 8,
+      "unit_price_yen": 170
+    },
+    {
+      "name": "ささみねぎ串",
+      "quantity": 1,
+      "amount_yen": 90,
+      "tax_rate": 8,
+      "unit_price_yen": 90
+    },
+    {
+      "name": "さばみそ煮",
+      "quantity": 1,
+      "amount_yen": 130,
+      "tax_rate": 8,
+      "unit_price_yen": 130
+    },
+    {
+      "name": "うす塩ポテトチップ",
+      "quantity": 1,
+      "amount_yen": 80,
+      "tax_rate": 8,
+      "unit_price_yen": 80
+    },
+    {
+      "name": "ミニオレンジゼリー",
+      "quantity": 1,
+      "amount_yen": 90,
+      "tax_rate": 8,
+      "unit_price_yen": 90
+    },
+    {
+      "name": "いか唐揚げ",
+      "quantity": 1,
+      "amount_yen": 280,
+      "tax_rate": 8,
+      "unit_price_yen": 280
+    },
+    {
+      "name": "たまご 10個",
+      "quantity": 1,
+      "amount_yen": 240,
+      "tax_rate": 8,
+      "unit_price_yen": 240
+    },
+    {
+      "name": "ミルクチョコ",
+      "quantity": 1,
+      "amount_yen": 100,
+      "tax_rate": 8,
+      "unit_price_yen": 100
+    },
+    {
+      "name": "骨なしチキンフランク",
+      "quantity": 1,
+      "amount_yen": 550,
+      "tax_rate": 8,
+      "unit_price_yen": 550
+    },
+    {
+      "name": "オニオン磯のり塩",
+      "quantity": 1,
+      "amount_yen": 110,
+      "tax_rate": 8,
+      "unit_price_yen": 110
+    },
+    {
+      "name": "千切りキャベツ",
+      "quantity": 1,
+      "amount_yen": 230,
+      "tax_rate": 8,
+      "unit_price_yen": 230
+    },
+    {
+      "name": "冷凍うどん5食",
+      "quantity": 1,
+      "amount_yen": 230,
+      "tax_rate": 8,
+      "unit_price_yen": 230
+    },
+    {
+      "name": "トマトケチャップ",
+      "quantity": 1,
+      "amount_yen": 190,
+      "tax_rate": 8,
+      "unit_price_yen": 190
+    },
+    {
+      "name": "焼きいもスティック",
+      "quantity": 1,
+      "amount_yen": 90,
+      "tax_rate": 8,
+      "unit_price_yen": 90
+    },
+    {
+      "name": "牛肉ガーリック塩だれ",
+      "quantity": 1,
+      "amount_yen": 180,
+      "tax_rate": 8,
+      "unit_price_yen": 180
+    },
+    {
+      "name": "かぼちゃ 1/4カット",
+      "quantity": 1,
+      "amount_yen": 150,
+      "tax_rate": 8,
+      "unit_price_yen": 150
+    },
+    {
+      "name": "ハッシュドポテト",
+      "quantity": 1,
+      "amount_yen": 230,
+      "tax_rate": 8,
+      "unit_price_yen": 230
+    },
+    {
+      "name": "カットレタス",
+      "quantity": 1,
+      "amount_yen": 120,
+      "tax_rate": 8,
+      "unit_price_yen": 120
+    }
+  ],
+  "totals": {
+    "total_yen": 8521,
+    "positive_item_total_yen": 7890,
+    "item_count": 44
+  },
+  "tax_summary": {
+    "round_policy": "floor_external_tax_per_rate",
+    "inferred_from_items": true,
+    "rates": [
+      {
+        "tax_rate": 8,
+        "taxable_amount_yen": 7890,
+        "tax_amount_yen": 584,
+        "inferred_from_items": true
+      }
+    ]
+  },
+  "payment": {
+    "method": "MIRAI CARD"
+  },
+  "public_safety": {
+    "public_safety_status": "public_safe",
+    "synthetic_store": true,
+    "no_real_brand_intended": true,
+    "no_real_personal_data_intended": true,
+    "reference_material_removed": true
+  },
+  "validation": {
+    "generated_by": "build_public_release_sidecars_from_strict.py",
+    "created_at": "2026-06-28 14:00:47",
+    "based_on_strict_preflight": true,
+    "strict_preflight_input": "05_generation/receipt_library_manager/exports/preflight_strict/public_candidate_preflight_strict_latest.json",
+    "strict_preflight_status": "needs_fix_before_export",
+    "critical_count_before_sidecar": 0,
+    "major_count_before_sidecar": 3,
+    "minor_count_before_sidecar": 3,
+    "notes": [
+      "Taxable amounts were inferred from item line totals; round policy is unknown."
+    ]
+  },
+  "invoice_profile": {
+    "invoice_like": true,
+    "invoice_type": "simplified_invoice_like",
+    "registration_number_printed": true,
+    "registration_number": "T3892223668516",
+    "registration_number_is_synthetic": true,
+    "registration_registry_checked": false,
+    "registration_registry_check_note": "No live lookup performed; synthetic or unverified registration data for OCR benchmark.",
+    "tax_rate_statement_printed": true,
+    "mixed_tax_rates": false,
+    "discount_allocated_by_tax_rate": false,
+    "printed_tax_notes": [],
+    "human_invoice_visual_check_required": true,
+    "invoice_naturalness": {
+      "registration_number_expected_for_industry": true,
+      "reason": "業態上、登録番号が印字されていると自然で、現在の公開用sourceにも合成登録番号があります。",
+      "future_generation_recommendation": "次回Genでも登録番号の印字と合成フラグを維持してください。"
+    }
+  },
+  "phone_profile": {
+    "phone_number_printed": true,
+    "phone_number": "087-864-1215",
+    "area_code": "087",
+    "area_code_region_consistent": "unknown",
+    "phone_number_is_synthetic": true,
+    "phone_number_registry_checked": false,
+    "phone_number_registry_check_note": "No live lookup performed; synthetic phone number for OCR benchmark.",
+    "human_phone_visual_check_required": true
+  }
+}

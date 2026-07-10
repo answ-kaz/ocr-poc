@@ -1,0 +1,321 @@
+{
+ "generator": "degrade.py",
+ "seed": 42,
+ "strength_params": {
+  "light": {
+   "persp": 0.01,
+   "rot": 1.5,
+   "rot90": 0.0,
+   "fade": 0.22,
+   "streak": 0.08,
+   "curl": 0.06,
+   "shadow": 0.15,
+   "illum": 0.1,
+   "band": 0.1,
+   "blur": 0,
+   "noise": 2.5,
+   "jpeg": 88
+  },
+  "medium": {
+   "persp": 0.028,
+   "rot": 3.0,
+   "rot90": 0.2,
+   "fade": 0.4,
+   "streak": 0.15,
+   "curl": 0.1,
+   "shadow": 0.28,
+   "illum": 0.2,
+   "band": 0.22,
+   "blur": 5,
+   "noise": 5.0,
+   "jpeg": 72
+  },
+  "heavy": {
+   "persp": 0.048,
+   "rot": 3.0,
+   "rot90": 0.3,
+   "fade": 0.55,
+   "streak": 0.24,
+   "curl": 0.14,
+   "shadow": 0.4,
+   "illum": 0.28,
+   "band": 0.32,
+   "blur": 7,
+   "noise": 9.0,
+   "jpeg": 55
+  }
+ },
+ "count": 30,
+ "entries": [
+  {
+   "output": "CASE-000010_GEN-CASE-000010-02_clean_light.jpg",
+   "strength": "light",
+   "case_id": "CASE-000010",
+   "source_image": "alpha10/images/CASE-000010_GEN-CASE-000010-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000010_GEN-CASE-000010-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000010_GEN-CASE-000010-02_clean_medium.jpg",
+   "strength": "medium",
+   "case_id": "CASE-000010",
+   "source_image": "alpha10/images/CASE-000010_GEN-CASE-000010-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000010_GEN-CASE-000010-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000010_GEN-CASE-000010-02_clean_heavy.jpg",
+   "strength": "heavy",
+   "case_id": "CASE-000010",
+   "source_image": "alpha10/images/CASE-000010_GEN-CASE-000010-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000010_GEN-CASE-000010-02_public_source.json",
+   "bg": "bg_plain",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000014_GEN-CASE-000014-02_clean_light.jpg",
+   "strength": "light",
+   "case_id": "CASE-000014",
+   "source_image": "alpha10/images/CASE-000014_GEN-CASE-000014-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000014_GEN-CASE-000014-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000014_GEN-CASE-000014-02_clean_medium.jpg",
+   "strength": "medium",
+   "case_id": "CASE-000014",
+   "source_image": "alpha10/images/CASE-000014_GEN-CASE-000014-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000014_GEN-CASE-000014-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000014_GEN-CASE-000014-02_clean_heavy.jpg",
+   "strength": "heavy",
+   "case_id": "CASE-000014",
+   "source_image": "alpha10/images/CASE-000014_GEN-CASE-000014-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000014_GEN-CASE-000014-02_public_source.json",
+   "bg": "bg_plain",
+   "rot90_applied": 90
+  },
+  {
+   "output": "CASE-000015_GEN-CASE-000015-02_clean_light.jpg",
+   "strength": "light",
+   "case_id": "CASE-000015",
+   "source_image": "alpha10/images/CASE-000015_GEN-CASE-000015-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000015_GEN-CASE-000015-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000015_GEN-CASE-000015-02_clean_medium.jpg",
+   "strength": "medium",
+   "case_id": "CASE-000015",
+   "source_image": "alpha10/images/CASE-000015_GEN-CASE-000015-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000015_GEN-CASE-000015-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000015_GEN-CASE-000015-02_clean_heavy.jpg",
+   "strength": "heavy",
+   "case_id": "CASE-000015",
+   "source_image": "alpha10/images/CASE-000015_GEN-CASE-000015-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000015_GEN-CASE-000015-02_public_source.json",
+   "bg": "bg_wood",
+   "rot90_applied": 90
+  },
+  {
+   "output": "CASE-000029_GEN-CASE-000029-02_clean_light.jpg",
+   "strength": "light",
+   "case_id": "CASE-000029",
+   "source_image": "alpha10/images/CASE-000029_GEN-CASE-000029-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000029_GEN-CASE-000029-02_public_source.json",
+   "bg": "bg_plain",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000029_GEN-CASE-000029-02_clean_medium.jpg",
+   "strength": "medium",
+   "case_id": "CASE-000029",
+   "source_image": "alpha10/images/CASE-000029_GEN-CASE-000029-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000029_GEN-CASE-000029-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000029_GEN-CASE-000029-02_clean_heavy.jpg",
+   "strength": "heavy",
+   "case_id": "CASE-000029",
+   "source_image": "alpha10/images/CASE-000029_GEN-CASE-000029-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000029_GEN-CASE-000029-02_public_source.json",
+   "bg": "bg_wood",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000032_GEN-CASE-000032-02_clean_light.jpg",
+   "strength": "light",
+   "case_id": "CASE-000032",
+   "source_image": "alpha10/images/CASE-000032_GEN-CASE-000032-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000032_GEN-CASE-000032-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000032_GEN-CASE-000032-02_clean_medium.jpg",
+   "strength": "medium",
+   "case_id": "CASE-000032",
+   "source_image": "alpha10/images/CASE-000032_GEN-CASE-000032-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000032_GEN-CASE-000032-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000032_GEN-CASE-000032-02_clean_heavy.jpg",
+   "strength": "heavy",
+   "case_id": "CASE-000032",
+   "source_image": "alpha10/images/CASE-000032_GEN-CASE-000032-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000032_GEN-CASE-000032-02_public_source.json",
+   "bg": "bg_wood",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000033_GEN-CASE-000033-02_clean_light.jpg",
+   "strength": "light",
+   "case_id": "CASE-000033",
+   "source_image": "alpha10/images/CASE-000033_GEN-CASE-000033-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000033_GEN-CASE-000033-02_public_source.json",
+   "bg": "bg_wood",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000033_GEN-CASE-000033-02_clean_medium.jpg",
+   "strength": "medium",
+   "case_id": "CASE-000033",
+   "source_image": "alpha10/images/CASE-000033_GEN-CASE-000033-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000033_GEN-CASE-000033-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000033_GEN-CASE-000033-02_clean_heavy.jpg",
+   "strength": "heavy",
+   "case_id": "CASE-000033",
+   "source_image": "alpha10/images/CASE-000033_GEN-CASE-000033-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000033_GEN-CASE-000033-02_public_source.json",
+   "bg": "bg_plain",
+   "rot90_applied": 90
+  },
+  {
+   "output": "CASE-000045_GEN-CASE-000045-02_clean_light.jpg",
+   "strength": "light",
+   "case_id": "CASE-000045",
+   "source_image": "alpha10/images/CASE-000045_GEN-CASE-000045-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000045_GEN-CASE-000045-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000045_GEN-CASE-000045-02_clean_medium.jpg",
+   "strength": "medium",
+   "case_id": "CASE-000045",
+   "source_image": "alpha10/images/CASE-000045_GEN-CASE-000045-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000045_GEN-CASE-000045-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 270
+  },
+  {
+   "output": "CASE-000045_GEN-CASE-000045-02_clean_heavy.jpg",
+   "strength": "heavy",
+   "case_id": "CASE-000045",
+   "source_image": "alpha10/images/CASE-000045_GEN-CASE-000045-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000045_GEN-CASE-000045-02_public_source.json",
+   "bg": "bg_plain",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000049_GEN-CASE-000049-02_clean_light.jpg",
+   "strength": "light",
+   "case_id": "CASE-000049",
+   "source_image": "alpha10/images/CASE-000049_GEN-CASE-000049-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000049_GEN-CASE-000049-02_public_source.json",
+   "bg": "bg_plain",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000049_GEN-CASE-000049-02_clean_medium.jpg",
+   "strength": "medium",
+   "case_id": "CASE-000049",
+   "source_image": "alpha10/images/CASE-000049_GEN-CASE-000049-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000049_GEN-CASE-000049-02_public_source.json",
+   "bg": "bg_plain",
+   "rot90_applied": 270
+  },
+  {
+   "output": "CASE-000049_GEN-CASE-000049-02_clean_heavy.jpg",
+   "strength": "heavy",
+   "case_id": "CASE-000049",
+   "source_image": "alpha10/images/CASE-000049_GEN-CASE-000049-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000049_GEN-CASE-000049-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000051_GEN-CASE-000051-02_clean_light.jpg",
+   "strength": "light",
+   "case_id": "CASE-000051",
+   "source_image": "alpha10/images/CASE-000051_GEN-CASE-000051-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000051_GEN-CASE-000051-02_public_source.json",
+   "bg": "bg_plain",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000051_GEN-CASE-000051-02_clean_medium.jpg",
+   "strength": "medium",
+   "case_id": "CASE-000051",
+   "source_image": "alpha10/images/CASE-000051_GEN-CASE-000051-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000051_GEN-CASE-000051-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 90
+  },
+  {
+   "output": "CASE-000051_GEN-CASE-000051-02_clean_heavy.jpg",
+   "strength": "heavy",
+   "case_id": "CASE-000051",
+   "source_image": "alpha10/images/CASE-000051_GEN-CASE-000051-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000051_GEN-CASE-000051-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000062_GEN-CASE-000062-02_clean_light.jpg",
+   "strength": "light",
+   "case_id": "CASE-000062",
+   "source_image": "alpha10/images/CASE-000062_GEN-CASE-000062-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000062_GEN-CASE-000062-02_public_source.json",
+   "bg": "bg_wood",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000062_GEN-CASE-000062-02_clean_medium.jpg",
+   "strength": "medium",
+   "case_id": "CASE-000062",
+   "source_image": "alpha10/images/CASE-000062_GEN-CASE-000062-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000062_GEN-CASE-000062-02_public_source.json",
+   "bg": "bg_plain",
+   "rot90_applied": 0
+  },
+  {
+   "output": "CASE-000062_GEN-CASE-000062-02_clean_heavy.jpg",
+   "strength": "heavy",
+   "case_id": "CASE-000062",
+   "source_image": "alpha10/images/CASE-000062_GEN-CASE-000062-02_clean.png",
+   "source_json": "alpha10/source_json/CASE-000062_GEN-CASE-000062-02_public_source.json",
+   "bg": "bg_cloth",
+   "rot90_applied": 0
+  }
+ ]
+}

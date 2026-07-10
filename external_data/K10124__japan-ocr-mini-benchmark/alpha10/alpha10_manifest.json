@@ -1,0 +1,215 @@
+{
+  "project": "Japan OCR Mini Benchmark",
+  "release_stage": "alpha10_publication_approved_payload",
+  "created_at": "2026-06-29 08:32:08",
+  "note": "Alpha10 approved payload for Hugging Face dataset repository.",
+  "source_pack": "public_alpha10_publication_approved_payload",
+  "summary": {
+    "records": 10,
+    "images": 10,
+    "source_json": 10,
+    "metadata": 10,
+    "publication_safety_scan": "pass",
+    "human_final_approval_required": false,
+    "excluded_cases": [
+      "CASE-000048"
+    ],
+    "hf_readme_is_dataset_card": true,
+    "final_approval_complete": true,
+    "license_final_confirmed": true,
+    "github_human_approved": true,
+    "hf_human_approved": true,
+    "ready_for_actual_github_publish": true,
+    "ready_for_actual_hf_publish": true,
+    "license": "CC BY 4.0"
+  },
+  "records": [
+    {
+      "rank": 1,
+      "case_id": "CASE-000062",
+      "generation_id": "GEN-CASE-000062-02",
+      "industry": "onsen",
+      "receipt_type": "onsen_day_spa_mixed_tax_facility_and_takeout_receipt",
+      "image_path": "images/CASE-000062_GEN-CASE-000062-02_clean.png",
+      "source_json_path": "source_json/CASE-000062_GEN-CASE-000062-02_public_source.json",
+      "metadata_path": "metadata/CASE-000062_GEN-CASE-000062-02_public_metadata.json",
+      "item_count": 5,
+      "tax_rates": [
+        8,
+        10
+      ],
+      "payment_method": "クレジット",
+      "total_yen": 4400,
+      "sha256": "7bbb9b395fb08524443562850c15b562dcc72db70f6d4384d8bf552668f342a2",
+      "status": "alpha10_approved_publication_payload"
+    },
+    {
+      "rank": 2,
+      "case_id": "CASE-000051",
+      "generation_id": "GEN-CASE-000051-02",
+      "industry": "restaurant",
+      "receipt_type": "izakaya_alcohol_eat_in_standard_tax_receipt",
+      "image_path": "images/CASE-000051_GEN-CASE-000051-02_clean.png",
+      "source_json_path": "source_json/CASE-000051_GEN-CASE-000051-02_public_source.json",
+      "metadata_path": "metadata/CASE-000051_GEN-CASE-000051-02_public_metadata.json",
+      "item_count": 8,
+      "tax_rates": [
+        8,
+        10
+      ],
+      "payment_method": "現金",
+      "total_yen": 4920,
+      "sha256": "a6ab4cacef5add2670075f707830d505e221288e8915e5c8719492e4f30704ee",
+      "status": "alpha10_approved_publication_payload"
+    },
+    {
+      "rank": 3,
+      "case_id": "CASE-000049",
+      "generation_id": "GEN-CASE-000049-02",
+      "industry": "washoku",
+      "receipt_type": "soba_eat_in_standard_tax_receipt",
+      "image_path": "images/CASE-000049_GEN-CASE-000049-02_clean.png",
+      "source_json_path": "source_json/CASE-000049_GEN-CASE-000049-02_public_source.json",
+      "metadata_path": "metadata/CASE-000049_GEN-CASE-000049-02_public_metadata.json",
+      "item_count": 5,
+      "tax_rates": [
+        8,
+        10
+      ],
+      "payment_method": "電子マネー",
+      "total_yen": 3000,
+      "sha256": "13ccc677d849bbdb38537b1d1e7c24d75245dc673a54eb6cbf96e6cb3985c4a4",
+      "status": "alpha10_approved_publication_payload"
+    },
+    {
+      "rank": 4,
+      "case_id": "CASE-000033",
+      "generation_id": "GEN-CASE-000033-02",
+      "industry": "taxi_transport",
+      "receipt_type": "taxi_fare_standard_tax_receipt",
+      "image_path": "images/CASE-000033_GEN-CASE-000033-02_clean.png",
+      "source_json_path": "source_json/CASE-000033_GEN-CASE-000033-02_public_source.json",
+      "metadata_path": "metadata/CASE-000033_GEN-CASE-000033-02_public_metadata.json",
+      "item_count": 1,
+      "tax_rates": [
+        10
+      ],
+      "payment_method": "コード決済",
+      "total_yen": 1200,
+      "sha256": "d202dcc32e4bbf64d7bb10ab32e9b0758bd478f6aa38d24c5f846fa2d44a7b5e",
+      "status": "alpha10_approved_publication_payload"
+    },
+    {
+      "rank": 5,
+      "case_id": "CASE-000032",
+      "generation_id": "GEN-CASE-000032-02",
+      "industry": "shared_workspace",
+      "receipt_type": "shared_workspace_lounge_time_receipt",
+      "image_path": "images/CASE-000032_GEN-CASE-000032-02_clean.png",
+      "source_json_path": "source_json/CASE-000032_GEN-CASE-000032-02_public_source.json",
+      "metadata_path": "metadata/CASE-000032_GEN-CASE-000032-02_public_metadata.json",
+      "item_count": 2,
+      "tax_rates": [
+        10
+      ],
+      "payment_method": "コード決済",
+      "total_yen": 2240,
+      "sha256": "ac518eed1b41184f753bc13382fc4cffbce75a8cb0f07a153a8831d8fdf86acd",
+      "status": "alpha10_approved_publication_payload"
+    },
+    {
+      "rank": 6,
+      "case_id": "CASE-000015",
+      "generation_id": "GEN-CASE-000015-02",
+      "industry": "coin_laundry",
+      "receipt_type": "coin_laundry_service_e_money_standard_tax_clean",
+      "image_path": "images/CASE-000015_GEN-CASE-000015-02_clean.png",
+      "source_json_path": "source_json/CASE-000015_GEN-CASE-000015-02_public_source.json",
+      "metadata_path": "metadata/CASE-000015_GEN-CASE-000015-02_public_metadata.json",
+      "item_count": 1,
+      "tax_rates": [
+        8,
+        10
+      ],
+      "payment_method": "電子マネー支払",
+      "total_yen": 300,
+      "sha256": "85f3c05674322d9e4fbc3747363fb59fefb2e497c505368cfc2766a26608462c",
+      "status": "alpha10_approved_publication_payload"
+    },
+    {
+      "rank": 7,
+      "case_id": "CASE-000014",
+      "generation_id": "GEN-CASE-000014-02",
+      "industry": "cinema",
+      "receipt_type": "cinema_ticket_receipt_clean",
+      "image_path": "images/CASE-000014_GEN-CASE-000014-02_clean.png",
+      "source_json_path": "source_json/CASE-000014_GEN-CASE-000014-02_public_source.json",
+      "metadata_path": "metadata/CASE-000014_GEN-CASE-000014-02_public_metadata.json",
+      "item_count": 2,
+      "tax_rates": [
+        8,
+        10
+      ],
+      "payment_method": "クレジットカード",
+      "total_yen": 2600,
+      "sha256": "ef94246ddb8f1983ba3776e4860be5b324781bdd3dbe40aafc32f9976c4813cd",
+      "status": "alpha10_approved_publication_payload"
+    },
+    {
+      "rank": 8,
+      "case_id": "CASE-000010",
+      "generation_id": "GEN-CASE-000010-02",
+      "industry": "sweets_shop",
+      "receipt_type": "sweets_takeout_reduced_tax_clean",
+      "image_path": "images/CASE-000010_GEN-CASE-000010-02_clean.png",
+      "source_json_path": "source_json/CASE-000010_GEN-CASE-000010-02_public_source.json",
+      "metadata_path": "metadata/CASE-000010_GEN-CASE-000010-02_public_metadata.json",
+      "item_count": 6,
+      "tax_rates": [
+        8,
+        10
+      ],
+      "payment_method": "cash",
+      "total_yen": 5930,
+      "sha256": "54f59880cc82c258f4dca1d23bb935b7949e1fa5e1f25020f7a30dc5f1b3f92f",
+      "status": "alpha10_approved_publication_payload"
+    },
+    {
+      "rank": 9,
+      "case_id": "CASE-000045",
+      "generation_id": "GEN-CASE-000045-02",
+      "industry": "discount_store",
+      "receipt_type": "life_goods_outlet_receipt",
+      "image_path": "images/CASE-000045_GEN-CASE-000045-02_clean.png",
+      "source_json_path": "source_json/CASE-000045_GEN-CASE-000045-02_public_source.json",
+      "metadata_path": "metadata/CASE-000045_GEN-CASE-000045-02_public_metadata.json",
+      "item_count": 8,
+      "tax_rates": [
+        8,
+        10
+      ],
+      "payment_method": "cash",
+      "total_yen": 3150,
+      "sha256": "e2837eb5c7d337d7a1bd1618e0a456217017ce6c1f48e08237ed8dc21d30cdc6",
+      "status": "alpha10_approved_publication_payload"
+    },
+    {
+      "rank": 10,
+      "case_id": "CASE-000029",
+      "generation_id": "GEN-CASE-000029-02",
+      "industry": "supermarket_food",
+      "receipt_type": "supermarket_bulk_takeout_food_external_tax_receipt",
+      "image_path": "images/CASE-000029_GEN-CASE-000029-02_clean.png",
+      "source_json_path": "source_json/CASE-000029_GEN-CASE-000029-02_public_source.json",
+      "metadata_path": "metadata/CASE-000029_GEN-CASE-000029-02_public_metadata.json",
+      "item_count": 44,
+      "tax_rates": [
+        8
+      ],
+      "payment_method": "MIRAI CARD",
+      "total_yen": 8521,
+      "sha256": "46623582193ce9ffa23b7df8b6a16c328f7c030cbd332a0e12bba8a8674e8f26",
+      "status": "alpha10_approved_publication_payload"
+    }
+  ]
+}

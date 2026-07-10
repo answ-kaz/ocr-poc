@@ -1,0 +1,29 @@
+{
+  "project": "Japan OCR Mini Benchmark",
+  "synthetic": true,
+  "public_release_metadata": true,
+  "case_id": "CASE-000033",
+  "generation_id": "GEN-CASE-000033-02",
+  "generation_number": 2,
+  "image_path": "images/CASE-000033_GEN-CASE-000033-02_clean.png",
+  "source_json_path": "source_json/CASE-000033_GEN-CASE-000033-02_public_source.json",
+  "metadata_source": "generated_public_sidecar",
+  "implementation_status": "accepted",
+  "release_status": "not_published",
+  "public_safety_status": "public_safe",
+  "sha256": "d202dcc32e4bbf64d7bb10ab32e9b0758bd478f6aa38d24c5f846fa2d44a7b5e",
+  "audit": {
+    "created_at": "2026-06-28 14:00:47",
+    "created_by": "build_public_release_sidecars_from_strict.py",
+    "strict_preflight_input": "05_generation/receipt_library_manager/exports/preflight_strict/public_candidate_preflight_strict_latest.json",
+    "sidecar_classification": "metadata_backfill_candidate"
+  },
+  "public_safety_flags": {
+    "synthetic": true,
+    "phone_number_is_synthetic": false,
+    "phone_number_registry_checked": false,
+    "registration_number_is_synthetic": false,
+    "registration_registry_checked": false,
+    "no_live_lookup_performed": true
+  }
+}

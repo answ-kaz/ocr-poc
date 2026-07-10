@@ -1,0 +1,136 @@
+{
+  "project": "Japan OCR Mini Benchmark",
+  "synthetic": true,
+  "public_release_source": true,
+  "case_id": "CASE-000010",
+  "generation_id": "GEN-CASE-000010-02",
+  "generation_number": 2,
+  "receipt_identity": {
+    "receipt_type": "sweets_takeout_reduced_tax_clean",
+    "industry": "sweets_shop",
+    "structure_id": "structure_audit_pending",
+    "layout_variant_id": "blogger_v4_reference_derived",
+    "branding_variant_id": "oval_enso_wagashi_wordmark",
+    "typography_variant_id": "oval_enso_wagashi_wordmark"
+  },
+  "store_identity": {
+    "name": "甘味 ゆき野",
+    "subtitle": "和菓子処",
+    "branch": "本町店",
+    "phone_number": "09-8127-9303",
+    "fictional_identity": true
+  },
+  "items": [
+    {
+      "name": "抹茶まんじゅう 6個入",
+      "quantity": 1,
+      "amount_yen": 900,
+      "tax_rate": 8,
+      "unit_price_yen": 900
+    },
+    {
+      "name": "栗最中 5個入",
+      "quantity": 1,
+      "amount_yen": 1070,
+      "tax_rate": 8,
+      "unit_price_yen": 1070
+    },
+    {
+      "name": "季節の羊羹「栗」1棹",
+      "quantity": 1,
+      "amount_yen": 960,
+      "tax_rate": 8,
+      "unit_price_yen": 960
+    },
+    {
+      "name": "豆大福 4個入",
+      "quantity": 2,
+      "amount_yen": 1940,
+      "tax_rate": 8,
+      "unit_price_yen": 970
+    },
+    {
+      "name": "和三盆干菓子 小箱",
+      "quantity": 1,
+      "amount_yen": 1060,
+      "tax_rate": 8,
+      "unit_price_yen": 1060
+    }
+  ],
+  "totals": {
+    "positive_item_total_yen": 5930,
+    "subtotal_yen": 5930,
+    "total_yen": 5930,
+    "item_count": 6
+  },
+  "tax_summary": {
+    "round_policy": "floor_per_rate",
+    "inferred_from_items": false,
+    "rates": [
+      {
+        "tax_rate": 8,
+        "taxable_amount_yen": 5930,
+        "tax_amount_yen": 439,
+        "inferred_from_items": false
+      },
+      {
+        "tax_rate": 10,
+        "taxable_amount_yen": 0,
+        "tax_amount_yen": 0,
+        "inferred_from_items": false
+      }
+    ]
+  },
+  "payment": {
+    "method": "cash",
+    "cash_received_yen": 6000,
+    "change_yen": 70
+  },
+  "public_safety": {
+    "public_safety_status": "public_safe",
+    "synthetic_store": true,
+    "no_real_brand_intended": true,
+    "no_real_personal_data_intended": true,
+    "reference_material_removed": true
+  },
+  "validation": {
+    "generated_by": "build_public_release_sidecars_from_strict.py",
+    "created_at": "2026-06-28 14:00:47",
+    "based_on_strict_preflight": true,
+    "strict_preflight_input": "05_generation/receipt_library_manager/exports/preflight_strict/public_candidate_preflight_strict_latest.json",
+    "strict_preflight_status": "needs_fix_before_export",
+    "critical_count_before_sidecar": 0,
+    "major_count_before_sidecar": 3,
+    "minor_count_before_sidecar": 4,
+    "notes": []
+  },
+  "invoice_profile": {
+    "invoice_like": true,
+    "invoice_type": "simplified_invoice_like",
+    "registration_number_printed": false,
+    "registration_number": null,
+    "registration_number_is_synthetic": false,
+    "registration_registry_checked": false,
+    "registration_registry_check_note": "No live lookup performed; synthetic or unverified registration data for OCR benchmark.",
+    "tax_rate_statement_printed": true,
+    "mixed_tax_rates": true,
+    "discount_allocated_by_tax_rate": false,
+    "printed_tax_notes": [],
+    "human_invoice_visual_check_required": true,
+    "invoice_naturalness": {
+      "registration_number_expected_for_industry": false,
+      "reason": "小規模店風または現行方針で登録番号必須とはしていない業態です。",
+      "future_generation_recommendation": "登録番号なしでも許容します。印字する場合は合成番号と未照合フラグを明記してください。"
+    }
+  },
+  "phone_profile": {
+    "phone_number_printed": true,
+    "phone_number": "09-8127-9303",
+    "area_code": "09",
+    "area_code_region_consistent": "unknown",
+    "phone_number_is_synthetic": true,
+    "phone_number_registry_checked": false,
+    "phone_number_registry_check_note": "No live lookup performed; synthetic phone number for OCR benchmark.",
+    "human_phone_visual_check_required": true
+  }
+}

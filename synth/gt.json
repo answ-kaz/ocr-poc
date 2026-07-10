@@ -1,0 +1,200 @@
+{
+  "synth_000.png": {
+    "store_brand": "マルワ商店",
+    "store_branch": "秋田駅前店",
+    "date": "2026-06-15",
+    "time": "11:14",
+    "total": 1162,
+    "tax": 95,
+    "registration_number": "T3890838637940",
+    "deposit": 2000,
+    "change": 838
+  },
+  "synth_001.png": {
+    "store_brand": "スーパーコダマ",
+    "store_branch": "秋田駅前店",
+    "date": "2026-06-09",
+    "time": "16:07",
+    "total": 1310,
+    "tax": 102,
+    "deposit": 2000,
+    "change": 690
+  },
+  "synth_002.png": {
+    "store_brand": "キッチンあおば",
+    "store_branch": "広面店",
+    "date": "2026-04-08",
+    "time": "16:46",
+    "total": 960,
+    "tax": 71,
+    "deposit": 5000,
+    "change": 4040,
+    "registration_number": "T7672423884969"
+  },
+  "synth_003.png": {
+    "store_brand": "クリーニングコスモ",
+    "store_branch": "泉中央店",
+    "date": "2025-09-21",
+    "time": "16:31",
+    "total": 1280,
+    "tax": 116,
+    "registration_number": "T8018451462704"
+  },
+  "synth_004.png": {
+    "store_brand": "マルワ商店",
+    "store_branch": "外旭川店",
+    "date": "2026-04-24",
+    "time": "10:23",
+    "total": 892,
+    "tax": 78,
+    "registration_number": "T5430391171822"
+  },
+  "synth_005.png": {
+    "store_brand": "スーパーコダマ",
+    "store_branch": "仁井田本町店",
+    "date": "2026-02-20",
+    "time": "09:15",
+    "total": 1017,
+    "tax": 75,
+    "registration_number": "T0518347382997",
+    "deposit": 1100,
+    "change": 83
+  },
+  "synth_006.png": {
+    "store_brand": "キッチンあおば",
+    "store_branch": "土崎港店",
+    "date": "2025-12-28",
+    "time": "21:46",
+    "total": 520,
+    "tax": 38,
+    "deposit": 1000,
+    "change": 480,
+    "registration_number": "T1781080132677"
+  },
+  "synth_007.png": {
+    "store_brand": "しろくまクリーニング",
+    "store_branch": "土崎港店",
+    "date": "2025-07-01",
+    "time": "14:00",
+    "total": 4400,
+    "tax": 400,
+    "deposit": 10000,
+    "change": 5600,
+    "registration_number": "T7882081219136"
+  },
+  "synth_008.png": {
+    "store_brand": "マルワ商店",
+    "store_branch": "川尻大川町店",
+    "date": "2025-07-12",
+    "time": "18:37",
+    "total": 1640,
+    "tax": 131,
+    "registration_number": "T1079911838425"
+  },
+  "synth_009.png": {
+    "store_brand": "グリーンマート",
+    "store_branch": "手形山崎店",
+    "date": "2025-08-19",
+    "time": "12:38",
+    "total": 972,
+    "tax": 72,
+    "registration_number": "T0052427868011",
+    "deposit": 1000,
+    "change": 28
+  },
+  "synth_010.png": {
+    "store_brand": "キッチンあおば",
+    "store_branch": "泉中央店",
+    "date": "2025-06-21",
+    "time": "11:43",
+    "total": 1290,
+    "tax": 95
+  },
+  "synth_011.png": {
+    "store_brand": "しろくまクリーニング",
+    "store_branch": "外旭川店",
+    "date": "2025-08-21",
+    "time": "14:55",
+    "total": 4400,
+    "tax": 400,
+    "registration_number": "T6850142940196"
+  },
+  "synth_012.png": {
+    "store_brand": "マルワ商店",
+    "store_branch": "土崎港店",
+    "date": "2026-03-23",
+    "time": "12:02",
+    "total": 982,
+    "tax": 82,
+    "registration_number": "T6564823662994"
+  },
+  "synth_013.png": {
+    "store_brand": "グリーンマート",
+    "store_branch": "外旭川店",
+    "date": "2026-02-19",
+    "time": "09:52",
+    "total": 1128,
+    "tax": 88,
+    "registration_number": "T1769367632016",
+    "deposit": 2000,
+    "change": 872
+  },
+  "synth_014.png": {
+    "store_brand": "キッチンあおば",
+    "store_branch": "仁井田本町店",
+    "date": "2026-04-10",
+    "time": "21:58",
+    "total": 1900,
+    "tax": 140,
+    "deposit": 2000,
+    "change": 100,
+    "registration_number": "T2316658760366"
+  },
+  "synth_015.png": {
+    "store_brand": "ランドリーはなおか",
+    "store_branch": "秋田駅前店",
+    "date": "2026-06-27",
+    "time": "15:00",
+    "total": 3850,
+    "tax": 350,
+    "registration_number": "T7298069901627"
+  },
+  "synth_016.png": {
+    "store_brand": "ハピネスプラザ",
+    "store_branch": "泉中央店",
+    "date": "2025-09-17",
+    "time": "13:21",
+    "total": 1272,
+    "tax": 103,
+    "registration_number": "T0033092327193"
+  },
+  "synth_017.png": {
+    "store_brand": "グリーンマート",
+    "store_branch": "川尻大川町店",
+    "date": "2026-05-20",
+    "time": "09:44",
+    "total": 1362,
+    "tax": 104,
+    "registration_number": "T1657262849877",
+    "deposit": 2000,
+    "change": 638
+  },
+  "synth_018.png": {
+    "store_brand": "レストランひまわり",
+    "store_branch": "川尻大川町店",
+    "date": "2026-04-09",
+    "time": "13:01",
+    "total": 1810,
+    "tax": 134,
+    "registration_number": "T7770143634957"
+  },
+  "synth_019.png": {
+    "store_brand": "ランドリーはなおか",
+    "store_branch": "手形山崎店",
+    "date": "2025-11-24",
+    "time": "19:35",
+    "total": 3260,
+    "tax": 296,
+    "registration_number": "T8941343524082"
+  }
+}

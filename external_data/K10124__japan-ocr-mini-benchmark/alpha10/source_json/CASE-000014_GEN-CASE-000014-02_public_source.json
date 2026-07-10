@@ -1,0 +1,100 @@
+{
+  "project": "Japan OCR Mini Benchmark",
+  "synthetic": true,
+  "public_release_source": true,
+  "case_id": "CASE-000014",
+  "generation_id": "GEN-CASE-000014-02",
+  "generation_number": 2,
+  "receipt_identity": {
+    "receipt_type": "cinema_ticket_receipt_clean",
+    "industry": "cinema",
+    "structure_id": "structure_audit_pending",
+    "layout_variant_id": "gen1faithful_cinema_ticket_receipt",
+    "branding_variant_id": "fictional_cinema_play_mark_wordmark",
+    "typography_variant_id": "fictional_cinema_play_mark_wordmark"
+  },
+  "store_identity": {},
+  "items": [
+    {
+      "name": "学生特別料金",
+      "quantity": 2,
+      "amount_yen": 2600,
+      "tax_rate": 10,
+      "unit_price_yen": 1300
+    }
+  ],
+  "totals": {
+    "positive_item_total_yen": 2600,
+    "subtotal_yen": 2600,
+    "total_yen": 2600,
+    "item_count": 2
+  },
+  "tax_summary": {
+    "round_policy": "floor_per_rate",
+    "inferred_from_items": false,
+    "rates": [
+      {
+        "tax_rate": 8,
+        "taxable_amount_yen": 0,
+        "tax_amount_yen": 0,
+        "inferred_from_items": false
+      },
+      {
+        "tax_rate": 10,
+        "taxable_amount_yen": 2600,
+        "tax_amount_yen": 236,
+        "inferred_from_items": false
+      }
+    ]
+  },
+  "payment": {
+    "method": "クレジットカード"
+  },
+  "public_safety": {
+    "public_safety_status": "public_safe",
+    "synthetic_store": true,
+    "no_real_brand_intended": true,
+    "no_real_personal_data_intended": true,
+    "reference_material_removed": true
+  },
+  "validation": {
+    "generated_by": "build_public_release_sidecars_from_strict.py",
+    "created_at": "2026-06-28 14:00:47",
+    "based_on_strict_preflight": true,
+    "strict_preflight_input": "05_generation/receipt_library_manager/exports/preflight_strict/public_candidate_preflight_strict_latest.json",
+    "strict_preflight_status": "needs_fix_before_export",
+    "critical_count_before_sidecar": 0,
+    "major_count_before_sidecar": 1,
+    "minor_count_before_sidecar": 2,
+    "notes": []
+  },
+  "invoice_profile": {
+    "invoice_like": true,
+    "invoice_type": "simplified_invoice_like",
+    "registration_number_printed": false,
+    "registration_number": null,
+    "registration_number_is_synthetic": false,
+    "registration_registry_checked": false,
+    "registration_registry_check_note": "No live lookup performed; synthetic or unverified registration data for OCR benchmark.",
+    "tax_rate_statement_printed": true,
+    "mixed_tax_rates": true,
+    "discount_allocated_by_tax_rate": false,
+    "printed_tax_notes": [],
+    "human_invoice_visual_check_required": true,
+    "invoice_naturalness": {
+      "registration_number_expected_for_industry": true,
+      "reason": "業態上、登録番号が印字されていると自然ですが、現在の公開用sourceには登録番号がありません。",
+      "future_generation_recommendation": "次回Genでは登録番号印字を検討してください。現在の画像に無い番号は追加しません。"
+    }
+  },
+  "phone_profile": {
+    "phone_number_printed": false,
+    "phone_number": null,
+    "area_code": null,
+    "area_code_region_consistent": "unknown",
+    "phone_number_is_synthetic": false,
+    "phone_number_registry_checked": false,
+    "phone_number_registry_check_note": "No live lookup performed; synthetic phone number for OCR benchmark.",
+    "human_phone_visual_check_required": true
+  }
+}
