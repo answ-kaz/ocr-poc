@@ -273,6 +273,8 @@ def main():
     ap.add_argument('--threshold', type=float, default=DEFAULT_THRESHOLD)
     ap.add_argument('--sweep', action='store_true', help='閾値・次元の感度分析')
     ap.add_argument('--verbose', action='store_true')
+    ap.add_argument('--model', default='models/ruri-v3-310m',
+                    help='モデルパス (default: models/ruri-v3-310m)')
     args = ap.parse_args()
 
     items = load_items()
@@ -290,13 +292,14 @@ def main():
 
     prefix = '' if args.prefix == 'none' else 'トピック: '
     rss0 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e6
-    labeler = RuriLineLabeler(prefix=prefix)
+    labeler = RuriLineLabeler(model_path=args.model, prefix=prefix)
     rss_load = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e6
     n_protos = len(labeler.proto_texts)
     print(f"model load: {labeler.load_sec:.2f}s / prototypes: {n_protos} "
           f"({ {k: len(v) for k, v in PROTOTYPES.items()} } + other)")
 
     suites = suite_order(items)
+    print(f"\n=== モデル: {args.model} ===")
     res = evaluate(items, cache, labeler, args.threshold, verbose=args.verbose)
     print_report(res, suites, args.threshold)
 
