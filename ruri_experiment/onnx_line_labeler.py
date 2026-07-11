@@ -33,13 +33,18 @@ from ruri_experiment.line_labeler import (
 
 
 class OnnxLineLabeler:
-    def __init__(self, model_path=ONNX_MODEL, threshold=DEFAULT_THRESHOLD, dims=None):
+    def __init__(self, model_path=ONNX_MODEL, threshold=DEFAULT_THRESHOLD, dims=None,
+                 batch_size=32, max_length=40):
         self.threshold = threshold
         self.dims = dims
+        self.batch_size = batch_size
+        self.max_length = max_length
 
-        # ONNXセッション
+        # ONNXセッション(メモリ最適化)
         opt = ort.SessionOptions()
         opt.log_severity_level = 3
+        opt.enable_cpu_mem_arena = False
+        opt.enable_mem_pattern = False
         self.sess = ort.InferenceSession(model_path, opt,
                                          providers=['CPUExecutionProvider'])
         self.input_names = [inp.name for inp in self.sess.get_inputs()]
@@ -49,7 +54,7 @@ class OnnxLineLabeler:
             tok_config = json.load(f)
         self._build_tokenizer(tok_config)
 
-        # プロトタイプ埋め込みを事前計算
+        # プロトタイプ埋め込みを事前計算(キャッシュ確認)
         self.proto_texts = []
         self.proto_labels = []
         for label, sents in PROTOTYPES.items():
@@ -59,7 +64,7 @@ class OnnxLineLabeler:
         for s in DISTRACTORS:
             self.proto_texts.append(s)
             self.proto_labels.append('other')
-        self.proto_emb = self._encode(self.proto_texts)
+        self.proto_emb = self._load_or_compute_proto_emb(model_path)
         if self.dims is not None:
             self.proto_emb = self.proto_emb[:, :self.dims]
             norms = np.linalg.norm(self.proto_emb, axis=1, keepdims=True)
@@ -71,25 +76,57 @@ class OnnxLineLabeler:
         sp_model = os.path.join(os.path.dirname(TOKENIZER_PATH), 'tokenizer.model')
         self.sp = spm.SentencePieceProcessor(model_file=sp_model)
 
-    def _tokenize(self, texts, max_length=128):
-        """テキストリスト→(input_ids, attention_mask)のnumpy配列"""
-        batch_ids, batch_mask = [], []
+    def _load_or_compute_proto_emb(self, model_path):
+        """プロトタイプ埋め込みをキャッシュからロード、なければ計算して保存。
+
+        キャッシュは実際にロードしたモデルのパスに紐づける(別モデルの
+        インスタンスが他モデルのキャッシュを拾わないように)。
+        キー: モデルサイズ + プロトタイプ文数 + トークン長上限
+        """
+        cache_path = model_path + '.proto_cache.npz'
+        cache_key = (f'{os.path.getsize(model_path)}_'
+                     f'{len(self.proto_texts)}_{self.max_length}')
+
+        if os.path.exists(cache_path):
+            data = np.load(cache_path, allow_pickle=False)
+            if 'cache_key' in data and str(data['cache_key']) == cache_key:
+                return data['proto_emb']
+
+        emb = self._encode(self.proto_texts)
+        np.savez(cache_path, proto_emb=emb, cache_key=cache_key)
+        return emb
+
+    def _tokenize(self, texts, max_length=None):
+        """テキストリスト→(input_ids, attention_mask)のnumpy配列。
+        動的パディング: バッチ内最大長にパディング、上限はmax_length。"""
+        if max_length is None:
+            max_length = self.max_length
+
+        # まず全テキストをトークン化
+        all_ids = []
         for text in texts:
             normalized = normalize_line(text)
             ids = self.sp.encode(normalized, out_type=int)
-            # [CLS] + ids + [SEP]
             ids = [self.sp.bos_id()] + ids + [self.sp.eos_id()]
-            mask = [1] * len(ids)
-            # パディング
-            if len(ids) < max_length:
-                pad_len = max_length - len(ids)
-                ids += [0] * pad_len
-                mask += [0] * pad_len
+            all_ids.append(ids)
+
+        # バッチ内最大長を計算(上限付き)
+        batch_max = max(len(ids) for ids in all_ids)
+        batch_max = min(batch_max, max_length)
+
+        # パディング
+        batch_ids, batch_mask = [], []
+        for ids in all_ids:
+            if len(ids) < batch_max:
+                pad_len = batch_max - len(ids)
+                ids = ids + [0] * pad_len
+                mask = [1] * (len(ids) - pad_len) + [0] * pad_len
             else:
-                ids = ids[:max_length]
-                mask = mask[:max_length]
+                ids = ids[:batch_max]
+                mask = [1] * batch_max
             batch_ids.append(ids)
             batch_mask.append(mask)
+
         return (np.array(batch_ids, dtype=np.int64),
                 np.array(batch_mask, dtype=np.int64))
 
@@ -110,9 +147,8 @@ class OnnxLineLabeler:
     def _encode(self, texts):
         """テキストリスト→埋め込み配列 (n, dim)"""
         all_embs = []
-        batch_size = 32
-        for i in range(0, len(texts), batch_size):
-            batch = texts[i:i + batch_size]
+        for i in range(0, len(texts), self.batch_size):
+            batch = texts[i:i + self.batch_size]
             ids, mask = self._tokenize(batch)
             feeds = {'input_ids': ids, 'attention_mask': mask}
             out = self.sess.run(None, feeds)

@@ -1,0 +1,21 @@
+# Build outputs
+build/
+.gradle/
+local.properties
+*.apk
+*.aab
+
+# IDE
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# ONNX Runtime
+*.ort
+*.onnx
+
+# Test data (large files)
+testdata/*.npy
+testdata/*.json

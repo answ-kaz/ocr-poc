@@ -17,3 +17,4 @@ onnx_models/ruri-v3-30m/model.onnx
 onnx_models/ruri-v3-30m/model_int8.onnx
 # .ortはconvert_onnx_models_to_ortで再生成可能(required_operators.configはgit管理)
 onnx_models/ort/*.ort
+*.proto_cache.npz
