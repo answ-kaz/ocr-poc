@@ -58,11 +58,11 @@ class ReceiptOCR:
       4. regex未検出フィールドを ruri ラベラーで補完
     """
 
-    def __init__(self, use_camera_guide=True, threshold=0.80):
+    def __init__(self, use_camera_guide=True, threshold=0.80, quantized=False):
         self.use_camera_guide = use_camera_guide
         if use_camera_guide:
             self.guide = ImageQualityGuide()
-        self.ocr = OnnxReceiptOCR()
+        self.ocr = OnnxReceiptOCR(quantized=quantized)
         self._labeler = None
         self._labeler_threshold = threshold
 
