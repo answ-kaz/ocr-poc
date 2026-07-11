@@ -16,6 +16,5 @@ local.properties
 *.ort
 *.onnx
 
-# Test data (large files)
+# 旧npy形式のみ除外(.bin+.jsonの組はテンソル受け渡しに必要なためgit管理)
 testdata/*.npy
-testdata/*.json
