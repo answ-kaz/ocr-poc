@@ -8,3 +8,6 @@ __pycache__/
 # 前処理の派生画像(スクリプト実行で再生成される)
 preprocessed_gray.png
 preprocessed_binary.png
+
+# 埋め込みモデル実験用の大容量DL(ruri-v3-310m 1.2GB等。HFから再取得可能)
+models/

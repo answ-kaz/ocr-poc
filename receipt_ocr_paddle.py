@@ -160,6 +160,7 @@ BRAND_DICT = [
     'ミニストップ', 'デイリーヤマザキ', 'NewDays', 'セイコーマート',
     'MOS BURGER', 'モスバーガー', 'うさちゃんクリーニング',
     'Ringer Hut', 'リンガーハット', 'LUPICIA', 'ルピシア',
+    'apollostation', 'アポロステーション',
 ]
 
 def _compact(s):

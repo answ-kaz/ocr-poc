@@ -91,6 +91,17 @@ GROUND_TRUTHS = {
         'tax': 423,   # 10%対象内消費税¥290 + 8%対象内消費税¥133(合算行の印字なし)
         'change': 0,  # 「おつり ¥0」印字あり(お預り行は無し=クレジット)
     },
+    'receipt9.jpg': {  # apollostation ◯◯店(ガソリンスタンド・他者撮影の低品質画像・現金払い)
+        'store_brand': 'apollostation',
+        'store_branch': '◯◯店',
+        'registration_number': 'T0000000000008',
+        'date': '2026-07-10',
+        'time': '18:36',
+        'total': 1000,
+        'tax': 91,    # (内税分消費税 ¥91)
+        'deposit': 1000,
+        'change': 0,  # 「お釣り ¥0」印字あり
+    },
 }
 
 PRESETS = {

@@ -34,6 +34,84 @@ DET_MAX_CANDIDATES = 3000
 # 認識は原寸画像からの切り出しなので解像度低下の影響を受けない。
 DET_LIMIT_SIDE_LEN = 960
 
+# ---------------- 条件付き前処理(劣化画像ゲート) ----------------
+# 常時前処理はDLモデルに有害(clean 30/33→29/33 を実測)のため、軽量な品質推定で
+# 「劣化しているときだけ」適用する2段ゲート方式。閾値の根拠は external ベンチ
+# (K10124 degraded 各10枚)+実写9枚+合成20枚での実測分布(下記)。
+#
+# ゲート1: ストロークコントラスト stroke_p95
+#   最大辺 PRE_GATE_MAX_SIDE に縮小したグレースケールの 3x3 モルフォロジー勾配の
+#   95パーセンタイル。掠れ・ブレ・低照度で低下する。実測分布:
+#     clean 173-237 / 合成 201-255 / light 106-147 / medium 52-94 / heavy 39-76
+#     実写 64-109
+#   → 閾値 100 で clean / light / 合成 は全数ゲート外(前処理なし=回帰なし)。
+# ゲート2: 最暗インク濃度 ink_p1
+#   紙領域(局所背景輝度>=PRE_PAPER_LO)の flat=gray/bg の1パーセンタイル。
+#   「印字自体が掠れて薄い」画像でのみ大きくなる。実測分布:
+#     実写 0.05-0.30(印字は濃く背景が暗いだけ) / medium 0.30-0.54 / heavy 0.25-0.51
+#   → 閾値 0.32 で実写9枚は全数ゲート外。medium/heavy は 9/10 枚が対象になる。
+#   (ゲート1のみだと実写7枚が対象になり、INT8 で実写 57/57→55/57 に回帰した。
+#    強調で太った文字を INT8 rec が誤読するため。ゲート2の追加で回帰ゼロ。)
+PRE_GATE_MAX_SIDE = 640
+PRE_GATE_STROKE_P95 = 100.0
+PRE_GATE_INK_P1 = 0.32
+
+# 前処理本体: モルフォロジー閉処理(最大辺256の縮小画像上、カーネル≒最大辺/PRE_BG_KERNEL_FRAC)
+# で局所背景輝度(紙面+照明ムラ+帯影)を推定して除算 → ガンマ3.5で淡い印字を濃く戻す。
+# 除算は紙領域(局所背景輝度が PRE_PAPER_LO..HI で高いところ)にのみ適用し、
+# 暗い机・布背景はそのまま残す(全面除算だと背景テクスチャが増幅されゴミ検出が増え、
+# 行再構成が壊れることを実測で確認: FP32 medium 18/33 → マスク付き 20/33)。
+# ガンマは 2.0/3.0/3.5/4.0 を比較し 3.5 を採用
+# (FP32 medium/heavy: 19/10, 19/13, 20/12, 20/10。INT8 では 3.5 が 19/11 で最良)。
+# 常時二値化は有害と実証済みのため不使用。CLAHE(17/8)・アンシャープ併用(18/11-12)・
+# 適応ガンマ(20/12だが実写INT8で52/57に悪化)・信頼度採択の二重推論(17/10。劣化画像でも
+# 誤読を高信頼で返すため採択が機能しない)はいずれも比較の結果不採用。
+PRE_BG_KERNEL_FRAC = 24     # 背景推定カーネル: 縮小画像最大辺の約1/24(1/12,1/40比較で最良)
+PRE_ENHANCE_GAMMA = 3.5
+PRE_PAPER_LO = 100.0        # 局所背景輝度がこの値以下 → 非紙領域として原画像を維持
+PRE_PAPER_HI = 170.0        # この値以上 → 完全に除算+ガンマを適用(間は線形ブレンド)
+
+
+def estimate_stroke_contrast(img):
+    """品質ゲート1用の軽量指標: 文字ストロークのコントラスト(大きいほど鮮明)。"""
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    h, w = gray.shape
+    scale = PRE_GATE_MAX_SIDE / max(h, w)
+    if scale < 1.0:
+        gray = cv2.resize(gray, (max(int(w * scale), 8), max(int(h * scale), 8)))
+    grad = cv2.morphologyEx(gray, cv2.MORPH_GRADIENT, np.ones((3, 3), np.uint8))
+    return float(np.percentile(grad, 95))
+
+
+def preprocess_if_degraded(img):
+    """2段ゲートで劣化を判定し、該当時のみ 紙領域の背景除算+ガンマ強調 を適用する。
+
+    返り値: (画像, 適用したか)。適用時はグレースケールの3ch複製を返す
+    (レシートは実質無彩色で、det/rec/向き分類とも精度影響がないことを実測確認済み)。
+    """
+    if estimate_stroke_contrast(img) >= PRE_GATE_STROKE_P95:
+        return img, False
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    h, w = gray.shape
+    # 背景(紙面輝度)推定は最大辺256の縮小画像上で行い計算量を抑える(スマホ前提)
+    scale = 256.0 / max(h, w)
+    small = cv2.resize(gray, (max(int(w * scale), 8), max(int(h * scale), 8)))
+    k = max(small.shape) // PRE_BG_KERNEL_FRAC * 2 + 1
+    bg_small = cv2.morphologyEx(small, cv2.MORPH_CLOSE, np.ones((k, k), np.uint8))
+    bg_small = cv2.GaussianBlur(bg_small, (0, 0), k / 2.0)
+    flat_small = np.clip(
+        small.astype(np.float32) / np.maximum(bg_small.astype(np.float32), 16.0), 0.0, 1.0)
+    paper_px = flat_small[bg_small.astype(np.float32) >= PRE_PAPER_LO]
+    # ゲート2: 紙領域が見つからない、または最暗インクが既に濃い(掠れていない)なら適用しない
+    if paper_px.size < 100 or float(np.percentile(paper_px, 1)) < PRE_GATE_INK_P1:
+        return img, False
+    bg = cv2.resize(bg_small, (w, h)).astype(np.float32)
+    flat = np.clip(gray.astype(np.float32) / np.maximum(bg, 16.0), 0.0, 1.0)
+    enhanced = flat ** PRE_ENHANCE_GAMMA * 255.0
+    paper = np.clip((bg - PRE_PAPER_LO) / (PRE_PAPER_HI - PRE_PAPER_LO), 0.0, 1.0)
+    out = paper * enhanced + (1.0 - paper) * gray.astype(np.float32)
+    return cv2.cvtColor(np.clip(out, 0, 255).astype(np.uint8), cv2.COLOR_GRAY2BGR), True
+
 
 def _imagenet_normalize(img):
     """BGR uint8 HWC -> float32 NCHW (ImageNet mean/std)"""
@@ -176,6 +254,9 @@ class OnnxReceiptOCR:
 
     # ---------------- パイプライン ----------------
     def predict(self, img):
+        # 条件付き前処理: 文書向き分類の「前」に適用する。劣化画像では向き分類自体が
+        # 崩れる(180度/90度誤り→全行ゴミ化)ため、前段適用で heavy 11/33→13/33 と実測差が出た。
+        img, preprocessed = preprocess_if_degraded(img)
         img, doc_angle = self.correct_doc_orientation(img)
         boxes = self.detect(img)
         texts, polys = [], []
@@ -187,7 +268,8 @@ class OnnxReceiptOCR:
                 texts.append(text)
                 polys.append(box)
         # receipt_ocr_paddle.paddle_result_to_text と互換の形式で返す
-        return {'rec_texts': texts, 'rec_polys': polys, 'doc_angle': doc_angle}
+        return {'rec_texts': texts, 'rec_polys': polys, 'doc_angle': doc_angle,
+                'preprocessed': preprocessed}
 
 
 def main():
