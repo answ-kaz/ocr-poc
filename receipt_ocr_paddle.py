@@ -210,8 +210,9 @@ _SIMPLIFIED_TO_JP = str.maketrans('额领对费减轻', '額領対費減軽')
 def extract_fields(text, extra_brands=None):
     # 全角英数字・全角記号(¥含む)を半角へ正規化
     text = unicodedata.normalize('NFKC', text)
-    # OCR典型誤認識の正規化(「計」が偏旁分割で「言十」等になるケース)
-    text = text.replace('言十', '計').replace('百十', '計')
+    # OCR典型誤認識の正規化(「計」が偏旁分割で「言十」等になるケース。
+    # 「合十」はINT8 recで「合計」の計が十へ潰れるケース)
+    text = text.replace('言十', '計').replace('百十', '計').replace('合十', '合計')
     # 簡体字グリフへの誤認識を日本語字体へ戻す(例: 额→額)
     text = text.translate(_SIMPLIFIED_TO_JP)
     result = {}
@@ -248,8 +249,12 @@ def extract_fields(text, extra_brands=None):
         compact = re.sub(r'\s+', '', line)
         if brand:
             compact = _strip_brand(compact, brand)
+        # 行再構成で支店名と住所が1行に融合するケースへの対策:
+        # 先頭の「都道府県+市郡区」は除去し(残りに「店」がある場合のみ)、
+        # 末尾側は「店」の直後に都道府県が続くことを行末と同様に許容する
+        compact = re.sub(r'^[一-龥]{2,3}[都道府県][一-龥]{1,4}[市郡区](?=.+店)', '', compact)
         # 半角「-」も許容(長音「ー」の誤認識対策)し、マッチ後にカタカナ間の「-」を長音へ戻す
-        m = re.search(r'([ぁ-んァ-ヶ一-龥A-Za-z][ぁ-んァ-ヶ一-龥A-Za-z0-9ー\-]*店)$', compact)
+        m = re.search(r'([ぁ-んァ-ヶ一-龥A-Za-z][ぁ-んァ-ヶ一-龥A-Za-z0-9ー\-]*店)(?=$|[一-龥]{2,3}[都道府県])', compact)
         if m and '対象' not in compact:
             result['store_branch'] = re.sub(r'(?<=[ァ-ヶ])-(?=[ァ-ヶ])', 'ー', m.group(1))
             break
@@ -285,20 +290,31 @@ def extract_fields(text, extra_brands=None):
 
     # 金額系。「合 計」「お 釣」の字間スペース、カンマ区切り、¥/￥有無に対応
     # 桁区切りはカンマの他、OCRで「.」に化けるケースも許容(円に小数は無いため安全)。
-    # 「¥3, 150」のように区切り直後にスペースが入る誤認識も許容
-    NUM = r'[¥\\]?\s*(\d{1,3}(?:[,，.]\s*\d{3})+|\d+)'
-    patterns = {
-        # 「お預り合計」の合計にマッチしないよう直前の「り」を除外
-        # 「合計金額 ¥2,503」のように「計」と金額の間に「金額」が入る表記と、
-        # 「<合 計> ¥1,800」のような括弧付きラベルの閉じ記号を許容
-        'total': r'(?<!り)合\s*計\s*[>)\]]?\s*(?:金\s*額)?\s*' + NUM,
-        # 「お預り」「お預かり」「お預り合計」と、現金払いの「現金 ¥6,000」行に対応
-        'deposit': r'(?:お\s*預\s*か?\s*り?\s*(?:合\s*計)?|現\s*金)\s*' + NUM,
-        # ひらがな「おつり ¥0」表記も対応
-        'change': r'お\s*[釣鈎釘勺つ]\s*り?\s*' + NUM,
-    }
-    for key, pat in patterns.items():
-        m = re.search(pat, text)
+    # 「¥3, 150」のように区切り直後にスペースが入る誤認識も許容。
+    # ラベルと金額の間は2パスで探す:
+    #   1パス目: 同一行内のみ(SP)。「現金」単独行の次行の電話番号等を金額として
+    #            誤捕捉しないため(receipt9で実測: 0120-00→deposit=120)
+    #   2パス目: 改行1つまで許容(SPX)。劣化画像で行再構成が分断され、ラベルと金額が
+    #            別行になるケースの救済(external heavy CASE-000010等で実測)
+    SP = r'[^\S\n]*'
+    SPX = SP + r'\n?' + SP
+    NUM = r'[¥\\]?' + SP + r'(\d{1,3}(?:[,，.]' + SP + r'\d{3})+|\d+)'
+
+    def money_patterns(gap):
+        return {
+            # 「お預り合計」の合計にマッチしないよう直前の「り」を除外
+            # 「合計金額 ¥2,503」のように「計」と金額の間に「金額」が入る表記と、
+            # 「<合 計> ¥1,800」のような括弧付きラベルの閉じ記号を許容
+            'total': r'(?<!り)合\s*計' + SP + r'[>)\]]?' + SP + r'(?:金\s*額)?' + gap + NUM,
+            # 「お預り」「お預かり」「お預り合計」と、現金払いの「現金 ¥6,000」行に対応
+            'deposit': r'(?:お\s*預\s*か?\s*り?' + SP + r'(?:合\s*計)?|現\s*金)' + gap + NUM,
+            # ひらがな「おつり ¥0」表記も対応
+            'change': r'お\s*[釣鈎釘勺つ]\s*り?' + gap + NUM,
+        }
+
+    same_line, cross_line = money_patterns(SP), money_patterns(SPX)
+    for key in same_line:
+        m = re.search(same_line[key], text) or re.search(cross_line[key], text)
         if m:
             result[key] = int(re.sub(r'[,，.\s]', '', m.group(1)))
 
@@ -307,10 +323,13 @@ def extract_fields(text, extra_brands=None):
     # 小数点付き税率を許容。税率なしの表記(=合算値であることが多い)を優先し、
     # 無ければ税率ごとに1件ずつ採って合算する(8%/10%併記の軽減税率レシート)。
     # 税率はラベル後の「消費税等(8%)」に加え、ラベル前の「10%対象内消費税」形式も拾う
+    # 金額の直後に「%」が続く場合は税率の数字を金額と誤捕捉したケースなので除外
+    # (例:「内税10%対象額」で対象額の金額でなく率の10を拾う誤り。receipt9 INT8で実測)。
+    # (?!\d)は\d+のバックトラックで「10」→「1」と縮めて%判定を回避するのを防ぐ
     tax_pat = (r'(?:(?P<rate_pre>\d{1,2}(?:\.\d+)?)\s*%\s*対象\s*)?'
-               r'(?:内?\s*消\s*費\s*税\s*[等額]?|内\s*税\s*額?)\s*\)?\s*'
-               r'(?:\(?\s*(?P<rate>\d{1,2}(?:\.\d+)?)\s*%\s*\)?)?\s*'
-               + NUM.replace('(', '(?P<amt>', 1))
+               r'(?:内?\s*消\s*費\s*税\s*[等額]?|内\s*税\s*額?)' + SP + r'\)?' + SP +
+               r'(?:\(?\s*(?P<rate>\d{1,2}(?:\.\d+)?)\s*%\s*\)?)?' + SP
+               + NUM.replace('(', '(?P<amt>', 1) + r'(?!\d)(?!' + SP + '%)')
     no_rate_amt, by_rate = None, {}
     for m in re.finditer(tax_pat, text):
         amt = int(re.sub(r'[,，.\s]', '', m.group('amt')))
