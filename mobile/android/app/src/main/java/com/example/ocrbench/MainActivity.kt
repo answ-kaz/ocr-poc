@@ -113,10 +113,11 @@ class MainActivity : Activity() {
             }
 
             val avgMs = times.average() / 1_000_000
-            val maxMs = times.max() / 1_000_000
+            val maxMs = times.max().toDouble() / 1_000_000
             log("  $modelName: avg=${String.format("%.1f", avgMs)}ms max=${String.format("%.1f", maxMs)}ms")
-        } catch (e: Exception) {
-            log("  $modelName: error - ${e.message}")
+        } catch (e: Throwable) {
+            Log.e(TAG, "  $modelName failed", e)
+            log("  $modelName: error - ${e.javaClass.simpleName}: ${e.message}")
         }
     }
 
@@ -144,10 +145,11 @@ class MainActivity : Activity() {
             }
 
             val avgMs = times.average() / 1_000_000
-            val maxMs = times.max() / 1_000_000
+            val maxMs = times.max().toDouble() / 1_000_000
             log("  labeler: avg=${String.format("%.1f", avgMs)}ms max=${String.format("%.1f", maxMs)}ms")
-        } catch (e: Exception) {
-            log("  labeler: error - ${e.message}")
+        } catch (e: Throwable) {
+            Log.e(TAG, "  labeler failed", e)
+            log("  labeler: error - ${e.javaClass.simpleName}: ${e.message}")
         }
     }
 
@@ -199,9 +201,16 @@ class MainActivity : Activity() {
 
     private fun log(msg: String) {
         Log.i(TAG, msg)
-        results.add(msg)
+        // resultsへの追記(バックグラウンドスレッド)とjoinToString(UIスレッド)が競合し
+        // ConcurrentModificationExceptionでクラッシュしていたため、追記と文字列化を
+        // 同じ同期ブロック内で完結させ、UIスレッドには完成済み文字列だけ渡す
+        val snapshot: String
+        synchronized(results) {
+            results.add(msg)
+            snapshot = results.joinToString("\n")
+        }
         runOnUiThread {
-            textView.text = results.joinToString("\n")
+            textView.text = snapshot
         }
     }
 }

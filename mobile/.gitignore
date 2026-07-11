@@ -18,3 +18,7 @@ local.properties
 
 # 旧npy形式のみ除外(.bin+.jsonの組はテンソル受け渡しに必要なためgit管理)
 testdata/*.npy
+
+# ビルド時に mobile/testdata/* からコピーされるassets(READMEのコピー手順で再生成可能)
+android/app/src/main/assets/*.bin
+android/app/src/main/assets/*.json

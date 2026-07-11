@@ -164,3 +164,53 @@ labeler: 1回
 ### 実機計測の残り(ユーザー側の作業)
 Android実機をUSB接続し、README記載の手順(Android Studioで開く→assembleDebug→
 adb install→logcat -s OCRBench)で実行するとモデル別推論時間が得られる。
+
+---
+
+## 実機計測 (メインセッション実施, 2026-07-11, 実機: SOG10)
+
+opencode納品のAndroidプロジェクトはビルド不能(Gradle Wrapper欠落・Kotlinプラグイン欠落・
+labelerテストテンソル未生成)だったため、メインセッションでビルド環境を整備し実機実行した。
+
+### 環境整備で修正した問題
+1. **Gradle Wrapper欠落**: `gradle/wrapper/gradle-wrapper.properties`(Gradle 8.4指定)+
+   `gradlew`/`gradlew.bat`/`gradle-wrapper.jar` を追加生成
+2. **`android.useAndroidX=true` 未設定**: `gradle.properties` を新規追加(AndroidXライブラリ利用に必須)
+3. **JDKバージョン**: システムのJDK 26はGradle 8.4が非対応(class file version 70)。
+   ビルドにはJDK 17を使用する必要あり(READMEに追記)
+4. **アプリ内の実行時バグ2件**(実機で初めて顕在化):
+   - `String.format("%.1f", times.max() / 1_000_000)` — `times.max()` は `Long` を返すため
+     `%f` 指定子で `IllegalFormatConversionException`。**推論自体は成功していたが、
+     結果ログ出力の型エラーで全モデルが「error」表示になっていた**
+   - `log()` 内でバックグラウンドスレッドの `results.add()` とUIスレッドの
+     `results.joinToString()` が無同期で競合し `ConcurrentModificationException` で
+     アプリがクラッシュ。`synchronized` ブロックで追記と文字列化を同一スレッド内に閉じ、
+     UIスレッドには完成済み文字列のみ渡す方式に修正
+
+### 実機推論時間 (SOG10, N=10回平均、ウォームアップ後)
+
+| モデル | avg | max |
+|---|---|---|
+| doc_ori | 7.6-7.9ms | 8.0-11.7ms |
+| det | 299.4-313.0ms | 311.3-320.8ms |
+| rec(1crop、幅依存) | 4.3-32.5ms | — |
+| textline_ori | 71.7-74.9ms | — |
+| labeler(20行バッチ) | 41.8-46.7ms | — |
+
+### レシート1枚相当(doc_ori+det+rec×10crop+textline+labeler)
+
+| 画像 | 実機合計 | Mac実測(参考、568ms/枚) |
+|---|---|---|
+| receipt | 547.4ms | ほぼ同水準 |
+| receipt9 | 640.6ms | ほぼ同水準 |
+
+detが実機推論の大半(約55-60%)を占める。Mac(CPU)とスマホ実機で同程度の速度が出ており、
+モバイル搭載の実行速度は現実的な範囲と確認できた。
+
+### 未解決・要フォローアップ
+- **Native heap 1523MB**: モデル合計45MB+活性化メモリに対し高すぎる。ベンチアプリが
+  5モデルを同時に保持しつつ2レシート分(doc_ori/det/rec×10/textline×10/labeler×2)を
+  連続実行した累積(セッション解放を待たず次を実行)の可能性が高く、実運用(1画像処理後に
+  det/rec等を都度解放、または使い回すにしてもcropごとの一時バッファ管理)を模したものではない。
+  実運用に近い計測(1枚処理ごとのheap推移)は今後の課題
+- iOS版は引き続きビルド未検証(Xcode環境が必要)
