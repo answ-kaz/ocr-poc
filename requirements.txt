@@ -1,0 +1,13 @@
+# コア実行時依存(pipeline.py / onnx_receipt_ocr.py / ruri_experiment/onnx_line_labeler.py)
+opencv-python>=4.10
+numpy>=2.0
+onnxruntime>=1.20
+pyclipper>=1.3
+sentencepiece>=0.2
+
+# 開発ツール用(量子化スクリプト quantize_*.py の実行にのみ必要。推論には不要)
+onnx>=1.20
+
+# レガシー比較・合成データ生成用(receipt_ocr.py, synth/generate_receipts.py)
+pytesseract>=0.3
+Pillow>=10.0

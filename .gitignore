@@ -41,3 +41,4 @@ mobile/testdata/receipt[0-9]_*.json
 /bench_tiny.err
 /onnx_run_log.txt
 /run_log.txt
+run_err.txt
