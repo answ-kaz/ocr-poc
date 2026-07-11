@@ -14,19 +14,13 @@ import json
 import unicodedata
 
 # ============================================================
-# 正解値(receipt.jpg を目視確認した値)
+# 正解値(receipt.jpg を目視確認した値。個人の購買データのため
+# local_ground_truth.py (.gitignore対象)へ分離。無ければ空dict)
 # ============================================================
-GROUND_TRUTH = {
-    'store_brand': 'LAWSON',
-    'store_branch': '◯◯店',
-    'registration_number': 'T0000000000001',
-    'date': '2026-06-16',
-    'time': '18:53',
-    'total': 494,
-    'tax': 36,
-    'deposit': 10000,
-    'change': 9506,
-}
+try:
+    from local_ground_truth import GROUND_TRUTH
+except ImportError:
+    GROUND_TRUTH = {}
 
 FIELD_LABELS = [
     ('store_brand', '店名(ブランド)'),
@@ -363,6 +357,8 @@ def build_comparison_table(results_by_engine):
     rows = [header, sep]
     score = {e: 0 for e in engines}
     for key, label in FIELD_LABELS:
+        if key not in GROUND_TRUTH:
+            continue
         truth = GROUND_TRUTH[key]
         cells = []
         for e in engines:

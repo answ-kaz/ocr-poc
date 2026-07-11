@@ -18,3 +18,26 @@ onnx_models/ruri-v3-30m/model_int8.onnx
 # .ortはconvert_onnx_models_to_ortで再生成可能(required_operators.configはgit管理)
 onnx_models/ort/*.ort
 *.proto_cache.npz
+
+# 実写レシート(個人の購買データ)。公開リポジトリには含めない。
+# 自分の実写レシートで評価したい場合は receipt.jpg / receipt2.jpg ... の形で
+# ここに置き、local_ground_truth.py に正解値を書けば評価スクリプトが動く
+/receipt.jpg
+/receipt[0-9].jpg
+local_ground_truth.py
+
+# 上記の実写画像から生成される派生物(個人データの痕跡が残るため同様に除外)
+mobile/testdata/receipt_*.bin
+mobile/testdata/receipt_*.json
+mobile/testdata/receipt[0-9]_*.bin
+mobile/testdata/receipt[0-9]_*.json
+
+# 実写レシートの生テキストを含む初期検証時のログ(現行コードから未参照)
+/bench_medium.json
+/bench_medium.err
+/bench_small.json
+/bench_small.err
+/bench_tiny.json
+/bench_tiny.err
+/onnx_run_log.txt
+/run_log.txt

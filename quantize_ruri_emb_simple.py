@@ -113,7 +113,7 @@ def main():
 
     # 実推論での等価性検証(サンプル文で元モデルとのcos類似度)
     samples = ['合計 ¥1,234', 'お預り ¥10,000', '2026年7月11日 18:36',
-               'レギユラーガソリン P04 数量 ¥1000', '登録番号:T0000000000008']
+               'レギユラーガソリン P04 数量 ¥1000', '登録番号:T1234567890123']
     import sentencepiece as spm
     sp = spm.SentencePieceProcessor(
         model_file=os.path.join(ONNX_DIR, 'tokenizer.model'))

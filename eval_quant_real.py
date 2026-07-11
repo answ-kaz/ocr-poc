@@ -48,6 +48,12 @@ def main():
     args = ap.parse_args()
     swaps = [s.split('=', 1) for s in args.swap]
 
+    if not GROUND_TRUTHS:
+        print("GROUND_TRUTHS が空です(実写レシートの正解値は local_ground_truth.py "
+              "に個人データとして分離されているため、公開リポジトリには含まれません)。"
+              "自分の実写レシートで評価する場合は local_ground_truth.py を用意してください。")
+        return
+
     ocr = build_ocr(args.config, swaps)
 
     total_ok = total_gt = 0

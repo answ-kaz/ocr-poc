@@ -16,93 +16,12 @@ import cv2
 
 from receipt_ocr_paddle import extract_fields, paddle_result_to_text
 
-# 画像ごとの正解値(目視確認)。キーが無い項目はそのレシートに存在しない
-GROUND_TRUTHS = {
-    'receipt.jpg': {   # LAWSON ◯◯店
-        'store_brand': 'LAWSON',
-        'store_branch': '◯◯店',
-        'registration_number': 'T0000000000001',
-        'date': '2026-06-16',
-        'time': '18:53',
-        'total': 494,
-        'tax': 36,
-        'deposit': 10000,
-        'change': 9506,
-    },
-    'receipt2.jpg': {  # セブン-イレブン ◯◯店(90度回転・PayPay支払で預り/釣り無し)
-        'store_brand': 'セブン-イレブン',
-        'store_branch': '◯◯店',
-        'registration_number': 'T0000000000002',
-        'date': '2026-04-16',
-        'time': '10:29',
-        'total': 289,
-        'tax': 21,
-    },
-    'receipt3.jpg': {  # モスバーガー ◯◯店(ドライブスルー・クレジット払いで預り/釣り無し)
-        'store_brand': 'MOS BURGER',
-        'store_branch': '◯◯店',
-        'registration_number': 'T0000000000003',
-        'date': '2026-04-10',
-        'time': '12:22',
-        'total': 5240,
-        'tax': 388,   # (内税) ¥388 = 軽減税8.0%
-    },
-    'receipt4.jpg': {  # LAWSON ◯◯店(地方公共団体証明書代の領収証・非課税・登録番号記載なし)
-        'store_brand': 'LAWSON',
-        'store_branch': '◯◯店',
-        'date': '2026-07-10',
-        'time': '18:30',
-        'total': 200,
-    },
-    'receipt5.jpg': {  # LAWSON ◯◯店(メルペイ払いで預り/釣り無し)
-        'store_brand': 'LAWSON',
-        'store_branch': '◯◯店',
-        'registration_number': 'T0000000000004',
-        'date': '2026-07-07',
-        'time': '09:19',
-        'total': 1680,
-        'tax': 144,   # 内消費税等
-    },
-    'receipt6.jpg': {  # うさちゃんクリーニング ◯◯店(クリーニング代領収書・時刻は「15時16分」表記)
-        'store_brand': 'うさちゃんクリーニング',
-        'store_branch': '◯◯店',
-        'registration_number': 'T0000000000005',
-        'date': '2026-06-16',
-        'time': '15:16',
-        'total': 2503,
-        'tax': 228,   # 内税額10.0%
-    },
-    'receipt7.jpg': {  # Ringer Hut ◯◯店(SCギフト払いで預り/釣り無し・時刻「20時24分」表記)
-        'store_brand': 'Ringer Hut',
-        'store_branch': '◯◯店',
-        'registration_number': 'T0000000000006',
-        'date': '2026-07-10',
-        'time': '20:24',
-        'total': 1800,
-        'tax': 163,   # (内消費税等 ¥163)
-    },
-    'receipt8.jpg': {  # LUPICIA ◯◯店(90度回転・クレジット払い・おつり¥0印字あり)
-        'store_brand': 'LUPICIA',
-        'store_branch': '◯◯店',
-        'registration_number': 'T0000000000007',
-        'date': '2026-07-10',
-        'time': '20:59',  # 印字は 20:59:29(秒付き)
-        'total': 5000,
-        'tax': 423,   # 10%対象内消費税¥290 + 8%対象内消費税¥133(合算行の印字なし)
-        'change': 0,  # 「おつり ¥0」印字あり(お預り行は無し=クレジット)
-    },
-    'receipt9.jpg': {  # apollostation ◯◯店(ガソリンスタンド・他者撮影の低品質画像・現金払い)
-        'store_brand': 'apollostation',
-        'store_branch': '◯◯店',
-        'registration_number': 'T0000000000008',
-        'date': '2026-07-10',
-        'time': '18:36',
-        'total': 1000,
-        'tax': 91,    # (内税分消費税 ¥91)
-        'deposit': 1000,
-        'change': 0,  # 「お釣り ¥0」印字あり
-    },
-}
+# 画像ごとの正解値(実写レシートの個人の購買データを含むため local_ground_truth.py
+# (.gitignore対象)へ分離。無ければ実写評価は空dictとしてスキップされる)
+try:
+    from local_ground_truth import GROUND_TRUTHS
+except ImportError:
+    GROUND_TRUTHS = {}
 
 PRESETS = {
     'medium': ('PP-OCRv6_medium_det', 'PP-OCRv6_medium_rec'),

@@ -29,6 +29,11 @@ mobile/
 
 ### 1. テストデータの生成
 
+`mobile/dump_testdata.py` はリポジトリ直下の `receipt.jpg` / `receipt9.jpg` からテンソルを生成する。
+これらは個人の実写レシート(購買データ)のため公開リポジトリには含めていない。
+自分の実写レシートを `receipt.jpg` として直下に置く(`local_ground_truth.py` は任意)か、
+`dump_receipt()` の呼び出し先を手持ちの画像パスに書き換えて実行する。
+
 ```bash
 cd /path/to/ocr-poc
 .venv/bin/python mobile/dump_testdata.py
