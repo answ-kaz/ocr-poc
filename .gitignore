@@ -11,3 +11,4 @@ preprocessed_binary.png
 
 # 埋め込みモデル実験用の大容量DL(ruri-v3-310m 1.2GB等。HFから再取得可能)
 models/
+onnx_models/ruri-v3-30m/model.onnx
